@@ -72,10 +72,27 @@ const StudyGoals = () => {
       const totalMinutes = studySessions?.reduce((sum, session) => sum + (session.minutes_studied || 0), 0) || 0;
       const studyHours = Math.round(totalMinutes / 60);
 
+      // Fetch lessons completed this week
+      const { data: lessonProgress } = await supabase
+        .from('lesson_progress')
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('completed', true)
+        .gte('completed_at', startOfWeek + 'T00:00:00Z')
+        .lte('completed_at', endOfWeek + 'T23:59:59Z');
+
+      // Fetch assignments completed this week
+      const { data: assignmentSubmissions } = await supabase
+        .from('assignment_submissions')
+        .select('id')
+        .eq('user_id', user.id)
+        .gte('submitted_at', startOfWeek + 'T00:00:00Z')
+        .lte('submitted_at', endOfWeek + 'T23:59:59Z');
+
       setProgress({
         studyHours,
-        lessons: 0, // TODO: Calculate from lesson_progress
-        assignments: 0 // TODO: Calculate from assignment_submissions
+        lessons: lessonProgress?.length || 0,
+        assignments: assignmentSubmissions?.length || 0
       });
     } catch (error) {
       console.error('Error fetching progress:', error);

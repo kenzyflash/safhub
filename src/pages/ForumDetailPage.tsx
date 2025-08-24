@@ -204,11 +204,7 @@ const ForumDetailPage = () => {
   };
 
   const handlePostClick = (post: ForumPost) => {
-    // For now, we'll just show a toast. Later we can navigate to individual post page
-    toast({
-      title: "Post Details",
-      description: "Individual post pages coming soon!",
-    });
+    navigate(`/forum/${id}/post/${post.id}`);
   };
 
   if (loading && !forum) {
