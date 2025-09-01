@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Shield, Search, AlertTriangle, RefreshCw, Clock, User, Database } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 
 // Mock audit log entry interface for display purposes
 interface AuditLogEntry {
@@ -47,37 +48,32 @@ const SecurityAuditLog = () => {
         throw new Error('Access denied. Admin role required.');
       }
 
-      // Since the security_audit_log table doesn't exist yet, we'll show a placeholder
-      // This will be replaced when the table is properly created
-      console.log('Audit log functionality will be available once security_audit_log table is created');
+      // Fetch from the real security_audit_log table
+      const { data, error } = await supabase
+        .from('security_audit_log')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(100);
+
+      if (error) {
+        throw error;
+      }
       
-      // Mock data for demonstration
-      const mockLogs: AuditLogEntry[] = [
-        {
-          id: '1',
-          user_id: 'user-123',
-          action: 'ROLE_CHANGE_SUCCESS',
-          resource_type: 'user_roles',
-          resource_id: 'user-456',
-          details: { old_role: 'student', new_role: 'teacher' },
-          ip_address: '192.168.1.1',
-          created_at: new Date().toISOString()
-        }
-      ];
-      
-      setAuditLogs(mockLogs);
+      setAuditLogs(data || []);
       
     } catch (error: any) {
       console.error('Error in fetchAuditLogs:', error);
       
-      let errorMessage = "Security audit log table not yet available. Please run the security migration first.";
+      let errorMessage = "Failed to load security audit logs.";
       if (error.message?.includes('Access denied')) {
         errorMessage = "Access denied. You may not have the required admin permissions.";
+      } else if (error.message?.includes('relation') && error.message?.includes('does not exist')) {
+        errorMessage = "Security audit log table not found. Database migration may be incomplete.";
       }
       
       setError(errorMessage);
       toast({
-        title: "Notice",
+        title: "Error",
         description: errorMessage,
         variant: "destructive"
       });
@@ -134,13 +130,13 @@ const SecurityAuditLog = () => {
   return (
     <div className="space-y-6">
       {/* Security Notice */}
-      <Card className="bg-red-50 border-red-200">
+      <Card className="bg-green-50 border-green-200">
         <CardContent className="p-4">
           <div className="flex items-center gap-2">
-            <Shield className="h-5 w-5 text-red-600" />
+            <Shield className="h-5 w-5 text-green-600" />
             <div className="flex-1">
-              <p className="text-sm font-medium text-red-900">Security Audit Log</p>
-              <p className="text-xs text-red-700">Security audit logging will be available once the database migration is completed.</p>
+              <p className="text-sm font-medium text-green-900">Security Audit Log Active</p>
+              <p className="text-xs text-green-700">All security events are being logged and monitored. Showing most recent 100 entries.</p>
             </div>
           </div>
         </CardContent>
@@ -221,9 +217,9 @@ const SecurityAuditLog = () => {
           {filteredLogs.length === 0 ? (
             <div className="text-center py-8 text-gray-500">
               <Database className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-              <p className="text-sm font-medium mb-1">Security audit logging will be available soon</p>
+              <p className="text-sm font-medium mb-1">No audit logs found</p>
               <p className="text-xs">
-                Once the security migration is completed, all security events will be logged here.
+                {error ? "Unable to load logs due to an error." : "No security events match your current filters."}
               </p>
             </div>
           ) : (
