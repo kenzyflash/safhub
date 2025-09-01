@@ -11,16 +11,16 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 
-// Mock audit log entry interface for display purposes
+// Audit log entry interface matching Supabase types
 interface AuditLogEntry {
   id: string;
   user_id: string;
   action: string;
   resource_type: string;
   resource_id: string;
-  details: Record<string, any>;
-  ip_address?: string;
-  user_agent?: string;
+  details: any; // Json type from Supabase can be string, number, boolean, object, array, or null
+  ip_address?: string | null;
+  user_agent?: string | null;
   created_at: string;
 }
 
@@ -59,7 +59,12 @@ const SecurityAuditLog = () => {
         throw error;
       }
       
-      setAuditLogs(data || []);
+      setAuditLogs((data || []).map(item => ({
+        ...item,
+        ip_address: item.ip_address as string | null,
+        user_agent: item.user_agent as string | null,
+        details: item.details || {}
+      })));
       
     } catch (error: any) {
       console.error('Error in fetchAuditLogs:', error);
