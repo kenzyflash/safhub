@@ -21,6 +21,7 @@ import DashboardStats from "@/components/dashboard/DashboardStats";
 import UserManagement from "@/components/dashboard/UserManagement";
 import ContactManagement from "@/components/dashboard/ContactManagement";
 import AdminSettings from "@/components/dashboard/AdminSettings";
+import SecurityPrivacyMessage from "@/components/security/SecurityPrivacyMessage";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const AdminDashboard = () => {
@@ -398,6 +399,9 @@ const AdminDashboard = () => {
             </TabsList>
 
             <TabsContent value="overview" className="space-y-6">
+              {/* Security Status */}
+              <SecurityPrivacyMessage />
+              
               <DashboardStats stats={systemStats} />
 
               {/* Main Content */}

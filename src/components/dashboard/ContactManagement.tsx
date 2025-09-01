@@ -36,19 +36,17 @@ const ContactManagement = () => {
   const fetchInquiries = async () => {
     try {
       setLoading(true);
-      console.log('Fetching contact inquiries...');
+      console.log('Fetching contact inquiries with security audit...');
       
-      const { data, error } = await supabase
-        .from('contact_inquiries')
-        .select('*')
-        .order('created_at', { ascending: false });
+      // Use the new secure function that includes audit logging
+      const { data, error } = await supabase.rpc('get_contact_inquiries_with_audit');
 
       if (error) {
         console.error('Error fetching contact inquiries:', error);
         throw error;
       }
 
-      console.log('Contact inquiries fetched:', data);
+      console.log('Contact inquiries fetched with audit:', data);
       setInquiries(data || []);
     } catch (error) {
       console.error('Error fetching contact inquiries:', error);

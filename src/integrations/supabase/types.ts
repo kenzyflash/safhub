@@ -938,9 +938,50 @@ export type Database = {
           school: string
         }[]
       }
+      get_contact_inquiries_with_audit: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          status: string
+          subject: string
+        }[]
+      }
+      get_course_discussions_secure: {
+        Args: { course_id_param: string }
+        Returns: {
+          anonymous_user_id: string
+          content: string
+          course_id: string
+          created_at: string
+          downvotes: number
+          id: string
+          is_own_post: boolean
+          parent_id: string
+          updated_at: string
+          upvotes: number
+        }[]
+      }
       get_current_user_role: {
         Args: Record<PropertyKey, never>
         Returns: string
+      }
+      get_forum_posts_anonymized: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          anonymous_user_id: string
+          content: string
+          created_at: string
+          downvotes: number
+          forum_id: string
+          id: string
+          title: string
+          updated_at: string
+          upvotes: number
+        }[]
       }
       get_user_vote_on_post: {
         Args: { p_post_id: string }
@@ -967,6 +1008,14 @@ export type Database = {
       }
       log_contact_access: {
         Args: { action: string; inquiry_id: string }
+        Returns: undefined
+      }
+      log_course_access: {
+        Args: { access_type: string; course_id_param: string }
+        Returns: undefined
+      }
+      log_profile_access: {
+        Args: { access_type: string; profile_user_id: string }
         Returns: undefined
       }
       update_user_role: {

@@ -80,7 +80,7 @@ const ForumPostCard = ({ post, onClick }: ForumPostCardProps) => {
       <CardHeader className="pb-3">
         <CardTitle className="text-lg text-gray-800 mb-1">{post.title}</CardTitle>
         <div className="flex items-center gap-2 text-xs text-gray-500">
-          <span>by {post.author_name || 'Anonymous'}</span>
+          <span>by {post.author_name || 'Anonymous User'}</span>
           <div className="flex items-center gap-1">
             <Clock className="h-3 w-3" />
             <span>{new Date(post.created_at).toLocaleDateString()}</span>

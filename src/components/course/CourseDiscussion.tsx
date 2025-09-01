@@ -47,12 +47,9 @@ const CourseDiscussion = ({ courseId }: CourseDiscussionProps) => {
 
   const fetchDiscussions = async () => {
     try {
-      // Get all discussions for this course
+      // Use secure function to get anonymized discussions for enrolled users
       const { data: discussionsData, error: discussionsError } = await supabase
-        .from('course_discussions')
-        .select('*')
-        .eq('course_id', courseId)
-        .order('created_at', { ascending: false });
+        .rpc('get_course_discussions_secure', { course_id_param: courseId });
 
       if (discussionsError) throw discussionsError;
 
@@ -60,19 +57,6 @@ const CourseDiscussion = ({ courseId }: CourseDiscussionProps) => {
         setDiscussions([]);
         setLoading(false);
         return;
-      }
-
-      // Get user IDs from discussions
-      const userIds = discussionsData.map(d => d.user_id);
-
-      // Get profiles for these users
-      const { data: profilesData, error: profilesError } = await supabase
-        .from('profiles')
-        .select('id, first_name, last_name')
-        .in('id', userIds);
-
-      if (profilesError) {
-        console.error('Error fetching profiles:', profilesError);
       }
 
       // Check which discussions the current user has upvoted/downvoted
@@ -94,21 +78,17 @@ const CourseDiscussion = ({ courseId }: CourseDiscussionProps) => {
         downvotedIds = downvotes?.map((d: any) => d.discussion_id) || [];
       }
 
-      // Organize discussions with replies
-      const discussionsWithProfiles = discussionsData.map(discussion => {
-        const profile = profilesData?.find(p => p.id === discussion.user_id);
-        return {
-          ...discussion,
-          downvotes: (discussion as any).downvotes || 0,
-          parent_id: (discussion as any).parent_id || null,
-          profiles: profile ? {
-            first_name: profile.first_name,
-            last_name: profile.last_name
-          } : null,
-          hasUpvoted: upvotedIds.includes(discussion.id),
-          hasDownvoted: downvotedIds.includes(discussion.id)
-        };
-      });
+      // Transform secure discussion data
+      const discussionsWithProfiles = discussionsData.map((discussion: any) => ({
+        ...discussion,
+        user_id: discussion.is_own_post ? user?.id : 'anonymous',
+        profiles: {
+          first_name: discussion.is_own_post ? 'You' : 'Student',
+          last_name: discussion.is_own_post ? '' : discussion.anonymous_user_id.replace('user_', '')
+        },
+        hasUpvoted: upvotedIds.includes(discussion.id),
+        hasDownvoted: downvotedIds.includes(discussion.id)
+      }));
 
       // Separate parent discussions and replies
       const parentDiscussions = discussionsWithProfiles.filter(d => !d.parent_id);
