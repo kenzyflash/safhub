@@ -4,15 +4,18 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, GraduationCap, Users, Award, Play, Star, CheckCircle, ArrowRight } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Link } from "react-router-dom";
 import LoginModal from "@/components/auth/LoginModal";
 import RegisterModal from "@/components/auth/RegisterModal";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 const Index = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const { user, userRole, loading } = useAuth();
+  const { t } = useLanguage();
 
   const handleSwitchToRegister = () => {
     setShowLogin(false);
@@ -41,12 +44,12 @@ const Index = () => {
   const getDashboardLabel = () => {
     switch (userRole) {
       case 'admin':
-        return 'Admin Dashboard';
+        return t('dashboard.admin');
       case 'teacher':
-        return 'Teacher Dashboard';
+        return t('dashboard.teacher');
       case 'student':
       default:
-        return 'Student Dashboard';
+        return t('dashboard.student');
     }
   };
 
@@ -104,45 +107,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <BookOpen className="h-8 w-8 text-emerald-600" />
-            <h1 className="text-2xl font-bold text-gray-800">SafHub</h1>
-          </div>
-          <div className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="text-emerald-600 font-medium">Home</Link>
-            <Link to="/courses" className="text-gray-600 hover:text-emerald-600 transition-colors">Courses</Link>
-            <Link to="/about" className="text-gray-600 hover:text-emerald-600 transition-colors">About</Link>
-            <Link to="/contact" className="text-gray-600 hover:text-emerald-600 transition-colors">Contact</Link>
-          </div>
-          <div className="flex items-center space-x-4">
-            {user ? (
-              // Show loading state while userRole is being fetched
-              loading || !userRole ? (
-                <Button disabled>
-                  Loading...
-                </Button>
-              ) : (
-                <Button asChild>
-                  <Link to={getDashboardPath()}>
-                    {getDashboardLabel()}
-                  </Link>
-                </Button>
-              )
-            ) : (
-              <>
-                <Button variant="ghost" onClick={() => setShowLogin(true)}>
-                  Sign In
-                </Button>
-                <Button onClick={() => setShowRegister(true)}>
-                  Get Started
-                </Button>
-              </>
-            )}
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20">

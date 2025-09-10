@@ -1,0 +1,78 @@
+{
+  "common": {
+    "home": "Home",
+    "courses": "Courses",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login",
+    "register": "Sign Up",
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "forum": "Forum",
+    "achievements": "Achievements",
+    "profile": "Profile",
+    "settings": "Settings",
+    "save": "Save",
+    "cancel": "Cancel",
+    "search": "Search",
+    "loading": "Loading",
+    "error": "Error",
+    "success": "Success"
+  },
+  "header": {
+    "title": "SafHub - Empowering Ethiopian Education",
+    "subtitle": "Quality education accessible anytime, anywhere"
+  },
+  "footer": {
+    "description": "Empowering Ethiopian students and teachers with quality education accessible anytime, anywhere.",
+    "quickLinks": "Quick Links",
+    "popularCourses": "Popular Courses",
+    "contactInfo": "Contact Info",
+    "address": "Addis Ababa, Ethiopia",
+    "phone": "+251 11 123 4567",
+    "email": "info@safhub.et",
+    "copyright": "All rights reserved."
+  },
+  "auth": {
+    "loginTitle": "Welcome Back",
+    "loginSubtitle": "Sign in to your account to continue learning",
+    "registerTitle": "Create Account",
+    "registerSubtitle": "Join SafHub and start your learning journey",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "fullName": "Full Name",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signInWith": "Or sign in with"
+  },
+  "courses": {
+    "title": "Our Courses",
+    "subtitle": "Discover quality education tailored for Ethiopian students",
+    "mathematics": "Mathematics",
+    "science": "Science",
+    "english": "English",
+    "socialStudies": "Social Studies",
+    "allCourses": "All Courses",
+    "enrollNow": "Enroll Now",
+    "viewCourse": "View Course"
+  },
+  "dashboard": {
+    "student": "Student Dashboard",
+    "teacher": "Teacher Dashboard",
+    "admin": "Admin Dashboard",
+    "parent": "Parent Dashboard",
+    "welcomeBack": "Welcome back",
+    "progress": "Progress",
+    "assignments": "Assignments",
+    "grades": "Grades",
+    "announcements": "Announcements"
+  },
+  "languages": {
+    "english": "English",
+    "amharic": "አማርኛ",
+    "selectLanguage": "Select Language"
+  }
+}

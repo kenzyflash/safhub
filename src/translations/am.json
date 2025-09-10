@@ -1,0 +1,78 @@
+{
+  "common": {
+    "home": "ዋና ገጽ",
+    "courses": "ትምህርቶች",
+    "about": "ስለ እኛ",
+    "contact": "አግኙን",
+    "login": "ግባ",
+    "register": "ተመዝገብ",
+    "logout": "ውጣ",
+    "dashboard": "ዳሽቦርድ",
+    "forum": "ውይይት ሰሌዳ",
+    "achievements": "ስኬቶች",
+    "profile": "መገለጫ",
+    "settings": "ቅንብሮች",
+    "save": "አስቀምጥ",
+    "cancel": "ሰርዝ",
+    "search": "ፈልግ",
+    "loading": "በመጫን ላይ",
+    "error": "ስህተት",
+    "success": "ተሳክቷል"
+  },
+  "header": {
+    "title": "ሳፍሀብ - የኢትዮጵያ ትምህርትን ማጎልበት",
+    "subtitle": "በማንኛውም ጊዜ፣ በማንኛውም ቦታ የሚገኝ ጥራት ያለው ትምህርት"
+  },
+  "footer": {
+    "description": "የኢትዮጵያ ተማሪዎችንና መምህራንን በማንኛውም ጊዜ፣ በማንኛውም ቦታ የሚገኝ ጥራት ያለው ትምህርት በማቅረብ ማጎልበት።",
+    "quickLinks": "ፈጣን አገናኞች",
+    "popularCourses": "ተወዳጅ ትምህርቶች",
+    "contactInfo": "የመገናኛ መረጃ",
+    "address": "አዲስ አበባ፣ ኢትዮጵያ",
+    "phone": "+251 11 123 4567",
+    "email": "info@safhub.et",
+    "copyright": "ሁሉም መብቶች የተጠበቁ ናቸው።"
+  },
+  "auth": {
+    "loginTitle": "እንኳን ደህና መጡ",
+    "loginSubtitle": "ትምህርትዎን ለመቀጠል ወደ መለያዎ ይግቡ",
+    "registerTitle": "መለያ ይፍጠሩ",
+    "registerSubtitle": "ሳፍሀብን በመቀላቀል የትምህርት ጉዞዎን ይጀምሩ",
+    "email": "ኢሜይል",
+    "password": "የይለፍ ቃል",
+    "confirmPassword": "የይለፍ ቃል አረጋግጥ",
+    "fullName": "ሙሉ ስም",
+    "rememberMe": "አስታውስኝ",
+    "forgotPassword": "የይለፍ ቃል ረሳህ?",
+    "noAccount": "መለያ የለዎትም?",
+    "hasAccount": "ቀደም ሲል መለያ አለዎት?",
+    "signInWith": "ወይም ይግቡ በ"
+  },
+  "courses": {
+    "title": "የእኛ ትምህርቶች",
+    "subtitle": "ለኢትዮጵያ ተማሪዎች የተዘጋጁ ጥራት ያላቸው ትምህርቶችን ያግኙ",
+    "mathematics": "ሂሳብ",
+    "science": "ሳይንስ",
+    "english": "እንግሊዝኛ",
+    "socialStudies": "ማህበራዊ ጥናት",
+    "allCourses": "ሁሉም ትምህርቶች",
+    "enrollNow": "አሁን ተመዝገብ",
+    "viewCourse": "ትምህርት ይመልከቱ"
+  },
+  "dashboard": {
+    "student": "የተማሪ ዳሽቦርድ",
+    "teacher": "የመምህር ዳሽቦርድ",
+    "admin": "የአስተዳዳሪ ዳሽቦርድ",
+    "parent": "የወላጅ ዳሽቦርድ",
+    "welcomeBack": "እንኳን ደህና መጡ",
+    "progress": "እድገት",
+    "assignments": "ተግባሮች",
+    "grades": "ውጤቶች",
+    "announcements": "ማስታወቂያዎች"
+  },
+  "languages": {
+    "english": "English",
+    "amharic": "አማርኛ",
+    "selectLanguage": "ቋንቋ ይምረጡ"
+  }
+}

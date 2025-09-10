@@ -4,13 +4,16 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import LoginModal from "@/components/auth/LoginModal";
 import RegisterModal from "@/components/auth/RegisterModal";
 import ProfileDropdown from "@/components/ProfileDropdown";
 import NotificationButton from "@/components/NotificationButton";
+import LanguageSelector from "@/components/LanguageSelector";
 
 const Header = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -30,27 +33,28 @@ const Header = () => {
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link to="/" className="text-gray-600 hover:text-emerald-600 transition-colors">
-              Home
+              {t('common.home')}
             </Link>
             <Link to="/courses" className="text-gray-600 hover:text-emerald-600 transition-colors">
-              Courses
+              {t('common.courses')}
             </Link>
             <Link to="/forum" className="text-gray-600 hover:text-emerald-600 transition-colors">
-              Forum
+              {t('common.forum')}
             </Link>
             <Link to="/achievements" className="text-gray-600 hover:text-emerald-600 transition-colors">
-              Achievements
+              {t('common.achievements')}
             </Link>
             <Link to="/about" className="text-gray-600 hover:text-emerald-600 transition-colors">
-              About
+              {t('common.about')}
             </Link>
             <Link to="/contact" className="text-gray-600 hover:text-emerald-600 transition-colors">
-              Contact
+              {t('common.contact')}
             </Link>
           </nav>
 
           {/* Auth Section */}
           <div className="flex items-center space-x-4">
+            <LanguageSelector />
             {user ? (
               <div className="flex items-center space-x-4">
                 <NotificationButton />
@@ -59,10 +63,10 @@ const Header = () => {
             ) : (
               <div className="flex items-center space-x-2">
                 <Button variant="ghost" onClick={() => setShowLogin(true)}>
-                  Login
+                  {t('common.login')}
                 </Button>
                 <Button onClick={() => setShowRegister(true)}>
-                  Sign Up
+                  {t('common.register')}
                 </Button>
               </div>
             )}
@@ -84,31 +88,31 @@ const Header = () => {
           <div className="md:hidden py-4 border-t">
             <div className="flex flex-col space-y-2">
               <Link to="/" className="text-gray-600 hover:text-emerald-600 transition-colors py-2">
-                Home
+                {t('common.home')}
               </Link>
               <Link to="/courses" className="text-gray-600 hover:text-emerald-600 transition-colors py-2">
-                Courses
+                {t('common.courses')}
               </Link>
               <Link to="/forum" className="text-gray-600 hover:text-emerald-600 transition-colors py-2">
-                Forum
+                {t('common.forum')}
               </Link>
               <Link to="/achievements" className="text-gray-600 hover:text-emerald-600 transition-colors py-2">
-                Achievements
+                {t('common.achievements')}
               </Link>
               <Link to="/about" className="text-gray-600 hover:text-emerald-600 transition-colors py-2">
-                About
+                {t('common.about')}
               </Link>
               <Link to="/contact" className="text-gray-600 hover:text-emerald-600 transition-colors py-2">
-                Contact
+                {t('common.contact')}
               </Link>
               
               {!user && (
                 <div className="flex flex-col space-y-2 pt-4 border-t">
                   <Button variant="ghost" onClick={() => setShowLogin(true)} className="justify-start">
-                    Login
+                    {t('common.login')}
                   </Button>
                   <Button onClick={() => setShowRegister(true)} className="justify-start">
-                    Sign Up
+                    {t('common.register')}
                   </Button>
                 </div>
               )}
