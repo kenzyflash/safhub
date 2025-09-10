@@ -79,18 +79,13 @@ const ForumPostDetailPage = () => {
         return;
       }
 
-      // Fetch author profile
+      // Fetch anonymized author profile
       const { data: profileData } = await supabase
-        .from('profiles')
-        .select('first_name, last_name')
-        .eq('id', postData.user_id)
-        .single();
+        .rpc('get_anonymized_profile', { profile_id: postData.user_id });
 
       setPost({
         ...postData,
-        author_name: profileData 
-          ? `${profileData.first_name} ${profileData.last_name}`.trim() || 'Anonymous'
-          : 'Anonymous'
+        author_name: profileData?.[0]?.display_name || 'Anonymous'
       });
     } catch (error) {
       console.error('Error fetching post:', error);
@@ -131,22 +126,31 @@ const ForumPostDetailPage = () => {
       if (repliesData && repliesData.length > 0) {
         const userIds = [...new Set(repliesData.map(reply => reply.user_id))];
         
-        const { data: profilesData } = await supabase
-          .from('profiles')
-          .select('id, first_name, last_name')
-          .in('id', userIds);
+        // Fetch anonymized profiles for reply authors
+        const profilePromises = userIds.map(async (userId) => {
+          const { data, error } = await supabase
+            .rpc('get_anonymized_profile', { profile_id: userId });
+          
+          if (error) {
+            console.error('Error fetching profile for user:', userId, error);
+            return { id: userId, display_name: 'Anonymous User', avatar_url: null };
+          }
+          
+          return {
+            id: userId,
+            display_name: data?.[0]?.display_name || 'Anonymous User',
+            avatar_url: data?.[0]?.avatar_url
+          };
+        });
 
-        const profilesMap = new Map(
-          profilesData?.map(profile => [profile.id, profile]) || []
-        );
+        const profilesData = await Promise.all(profilePromises);
+        const profilesMap = new Map(profilesData.map(profile => [profile.id, profile]));
 
         const repliesWithAuthors = repliesData.map(reply => {
           const profile = profilesMap.get(reply.user_id);
           return {
             ...reply,
-            author_name: profile 
-              ? `${profile.first_name} ${profile.last_name}`.trim() || 'Anonymous'
-              : 'Anonymous'
+            author_name: profile?.display_name || 'Anonymous User'
           };
         });
 

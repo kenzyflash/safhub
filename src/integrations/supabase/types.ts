@@ -938,6 +938,13 @@ export type Database = {
           school: string
         }[]
       }
+      get_anonymized_profile: {
+        Args: { profile_id: string }
+        Returns: {
+          avatar_url: string
+          display_name: string
+        }[]
+      }
       get_contact_inquiries_with_audit: {
         Args: Record<PropertyKey, never>
         Returns: {
@@ -981,6 +988,18 @@ export type Database = {
           title: string
           updated_at: string
           upvotes: number
+        }[]
+      }
+      get_profiles_for_admin_management: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          created_at: string
+          email: string
+          first_name: string
+          grade: string
+          id: string
+          last_name: string
+          school: string
         }[]
       }
       get_user_vote_on_post: {

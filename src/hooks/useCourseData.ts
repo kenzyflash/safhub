@@ -88,25 +88,29 @@ export const useCourseData = () => {
         return;
       }
 
-      // Fetch instructor profiles separately
-      const { data: instructorProfiles, error: profilesError } = await supabase
-        .from('profiles')
-        .select('id, first_name, last_name')
-        .in('id', instructorIds);
+      // Fetch anonymized instructor profiles separately
+      const instructorProfilePromises = instructorIds.map(async (instructorId) => {
+        const { data, error } = await supabase
+          .rpc('get_anonymized_profile', { profile_id: instructorId });
+        
+        if (error) {
+          console.error('Error fetching profile for instructor:', instructorId, error);
+          return { id: instructorId, display_name: 'Unknown Instructor' };
+        }
+        
+        return {
+          id: instructorId,
+          display_name: data?.[0]?.display_name || 'Unknown Instructor'
+        };
+      });
 
-      if (profilesError) {
-        console.error('Error fetching instructor profiles:', profilesError);
-        // Continue with courses that have instructor_name already set
-        const validCourses = coursesData.filter(course => course.instructor_name);
-        setCourses(validCourses);
-        return;
-      }
+      const instructorProfiles = await Promise.all(instructorProfilePromises);
 
       // Create a map of instructor profiles
       const profilesMap = new Map(
-        (instructorProfiles || []).map(profile => [
+        instructorProfiles.map(profile => [
           profile.id, 
-          `${profile.first_name} ${profile.last_name}`.trim()
+          profile.display_name
         ])
       );
 

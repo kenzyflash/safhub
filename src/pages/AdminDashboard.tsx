@@ -80,13 +80,14 @@ const AdminDashboard = () => {
       console.log('Fetching system stats...');
       
       // Fetch total users with error handling
-      const { count: totalUsers, error: usersError } = await supabase
-        .from('profiles')
-        .select('*', { count: 'exact', head: true });
+      const { data: totalUsersData, error: usersError } = await supabase
+        .rpc('get_profiles_for_admin_management');
 
       if (usersError) {
         console.error('Error fetching users count:', usersError);
       }
+
+      const totalUsers = totalUsersData?.length || 0;
 
       // Fetch total courses with error handling
       const { count: totalCourses, error: coursesError } = await supabase
@@ -286,9 +287,9 @@ const AdminDashboard = () => {
       console.log('Fetching system overview...');
       
       // Get more accurate database size estimate
-      const { count: profilesCount } = await supabase
-        .from('profiles')
-        .select('*', { count: 'exact', head: true });
+      const { data: profilesData } = await supabase
+        .rpc('get_profiles_for_admin_management');
+      const profilesCount = profilesData?.length || 0;
 
       const { count: coursesCount } = await supabase
         .from('courses')

@@ -139,14 +139,9 @@ const SubmissionManagement = () => {
 
       console.log('Raw submissions found:', submissionsData.length);
 
-      // Step 4: Get student profiles for all unique user IDs
-      const uniqueUserIds = [...new Set(submissionsData.map(sub => sub.user_id))];
-      console.log('Unique student IDs:', uniqueUserIds);
-
+      // Step 4: Get student profiles using secure admin function
       const { data: studentProfiles, error: profilesError } = await supabase
-        .from('profiles')
-        .select('id, first_name, last_name, email')
-        .in('id', uniqueUserIds);
+        .rpc('get_profiles_for_admin_management');
 
       if (profilesError) {
         console.error('Error fetching student profiles:', profilesError);

@@ -124,37 +124,36 @@ const ForumDetailPage = () => {
       // Get unique user IDs from posts
       const userIds = [...new Set(postsData.map(post => post.user_id))];
       
-      // Fetch profiles for these users
-      const { data: profilesData, error: profilesError } = await supabase
-        .from('profiles')
-        .select('id, first_name, last_name')
-        .in('id', userIds);
+      // Fetch anonymized profiles for these users
+      const profilePromises = userIds.map(async (userId) => {
+        const { data, error } = await supabase
+          .rpc('get_anonymized_profile', { profile_id: userId });
+        
+        if (error) {
+          console.error('Error fetching profile for user:', userId, error);
+          return { id: userId, display_name: 'Anonymous User', avatar_url: null };
+        }
+        
+        return {
+          id: userId,
+          display_name: data?.[0]?.display_name || 'Anonymous User',
+          avatar_url: data?.[0]?.avatar_url
+        };
+      });
 
-      if (profilesError) {
-        console.error('Error fetching profiles:', profilesError);
-        // Still show posts but without author names
-        const postsWithoutAuthors = postsData.map(post => ({
-          ...post,
-          author_name: 'Anonymous',
-          reply_count: 0
-        }));
-        setPosts(postsWithoutAuthors);
-        return;
-      }
+      const profilesData = await Promise.all(profilePromises);
 
       // Create a map of user ID to profile
       const profilesMap = new Map(
-        profilesData?.map(profile => [profile.id, profile]) || []
+        profilesData.map(profile => [profile.id, profile])
       );
 
-      // Combine posts with profile data
+      // Combine posts with anonymized profile data
       const postsWithAuthors = postsData.map(post => {
         const profile = profilesMap.get(post.user_id);
         return {
           ...post,
-          author_name: profile 
-            ? `${profile.first_name} ${profile.last_name}`.trim() || 'Anonymous'
-            : 'Anonymous',
+          author_name: profile?.display_name || 'Anonymous',
           reply_count: 0 // TODO: Add actual reply count when replies are implemented
         };
       });
