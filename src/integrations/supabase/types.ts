@@ -1037,6 +1037,10 @@ export type Database = {
         Args: { access_type: string; profile_user_id: string }
         Returns: undefined
       }
+      update_contact_inquiry_status: {
+        Args: { inquiry_id: string; new_status: string }
+        Returns: Json
+      }
       update_user_role: {
         Args: { new_role: string; target_user_id: string }
         Returns: Json

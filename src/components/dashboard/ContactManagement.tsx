@@ -63,16 +63,24 @@ const ContactManagement = () => {
   const updateStatus = async (inquiryId: string, newStatus: string) => {
     try {
       setUpdating(inquiryId);
-      console.log(`Updating inquiry ${inquiryId} status to ${newStatus}`);
+      console.log(`Updating inquiry ${inquiryId} status to ${newStatus} via secure function`);
       
-      const { error } = await supabase
-        .from('contact_inquiries')
-        .update({ status: newStatus })
-        .eq('id', inquiryId);
+      // Use the new secure function with audit logging
+      const { data, error } = await supabase.rpc('update_contact_inquiry_status', {
+        inquiry_id: inquiryId,
+        new_status: newStatus
+      });
 
       if (error) {
         console.error('Error updating status:', error);
         throw error;
+      }
+
+      const result = data as { success: boolean; error?: string; message?: string };
+      
+      if (!result.success) {
+        console.error('Status update failed:', result.error);
+        throw new Error(result.error || 'Update failed');
       }
 
       // Update local state
@@ -92,7 +100,7 @@ const ContactManagement = () => {
         description: `Inquiry marked as ${newStatus}`,
       });
 
-      console.log(`Successfully updated inquiry ${inquiryId} to ${newStatus}`);
+      console.log(`Successfully updated inquiry ${inquiryId} to ${newStatus} with security audit`);
     } catch (error) {
       console.error('Error updating status:', error);
       toast({
