@@ -913,6 +913,17 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_update_profile_secure: {
+        Args: {
+          new_email?: string
+          new_first_name?: string
+          new_grade?: string
+          new_last_name?: string
+          new_school?: string
+          target_profile_id: string
+        }
+        Returns: Json
+      }
       award_achievement: {
         Args: { achievement_name_param: string; user_id_param: string }
         Returns: boolean
@@ -991,6 +1002,18 @@ export type Database = {
         }[]
       }
       get_profiles_for_admin_management: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          created_at: string
+          email: string
+          first_name: string
+          grade: string
+          id: string
+          last_name: string
+          school: string
+        }[]
+      }
+      get_profiles_for_admin_secure: {
         Args: Record<PropertyKey, never>
         Returns: {
           created_at: string
