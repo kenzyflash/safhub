@@ -742,7 +742,7 @@ export type Database = {
           created_at: string | null
           details: Json | null
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           resource_id: string | null
           resource_type: string
           user_agent: string | null
@@ -753,7 +753,7 @@ export type Database = {
           created_at?: string | null
           details?: Json | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           resource_id?: string | null
           resource_type: string
           user_agent?: string | null
@@ -764,7 +764,7 @@ export type Database = {
           created_at?: string | null
           details?: Json | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           resource_id?: string | null
           resource_type?: string
           user_agent?: string | null
@@ -932,12 +932,9 @@ export type Database = {
         Args: { discussion_id: string }
         Returns: undefined
       }
-      decrement_upvotes: {
-        Args: { discussion_id: string }
-        Returns: undefined
-      }
+      decrement_upvotes: { Args: { discussion_id: string }; Returns: undefined }
       get_all_users_with_roles: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           created_at: string
           email: string
@@ -957,7 +954,7 @@ export type Database = {
         }[]
       }
       get_contact_inquiries_with_audit: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           created_at: string
           email: string
@@ -983,12 +980,9 @@ export type Database = {
           upvotes: number
         }[]
       }
-      get_current_user_role: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
+      get_current_user_role: { Args: never; Returns: string }
       get_forum_posts_anonymized: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           anonymous_user_id: string
           content: string
@@ -1002,7 +996,7 @@ export type Database = {
         }[]
       }
       get_profiles_for_admin_management: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           created_at: string
           email: string
@@ -1014,7 +1008,7 @@ export type Database = {
         }[]
       }
       get_profiles_for_admin_secure: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           created_at: string
           email: string
@@ -1025,10 +1019,7 @@ export type Database = {
           school: string
         }[]
       }
-      get_user_vote_on_post: {
-        Args: { p_post_id: string }
-        Returns: string
-      }
+      get_user_vote_on_post: { Args: { p_post_id: string }; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -1044,10 +1035,7 @@ export type Database = {
         Args: { p_date: string; p_minutes: number; p_user_id: string }
         Returns: undefined
       }
-      increment_upvotes: {
-        Args: { discussion_id: string }
-        Returns: undefined
-      }
+      increment_upvotes: { Args: { discussion_id: string }; Returns: undefined }
       log_contact_access: {
         Args: { action: string; inquiry_id: string }
         Returns: undefined
