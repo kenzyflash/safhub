@@ -75,7 +75,7 @@ const About = () => {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <BookOpen className="h-8 w-8 text-emerald-600" />
-            <h1 className="text-2xl font-bold text-gray-800">SafHub</h1>
+            <h1 className="text-2xl font-bold text-gray-800">EdHub</h1>
           </div>
           <div className="hidden md:flex items-center space-x-6">
             <Link to="/" className="text-gray-600 hover:text-emerald-600 transition-colors">Home</Link>
@@ -93,7 +93,7 @@ const About = () => {
       <section className="container mx-auto px-4 py-20">
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-6">
-            About SafHub
+            About EdHub
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Empowering Ethiopian students with world-class education that honors our heritage while preparing for the future
@@ -182,7 +182,7 @@ const About = () => {
             <h2 className="text-4xl font-bold text-gray-800 mb-8">Our Story</h2>
             <div className="space-y-6 text-lg text-gray-600">
               <p>
-                SafHub was founded in 2010 with a simple yet powerful vision: to make quality education accessible to every Ethiopian student, regardless of their geographical location or economic background.
+                EdHub was founded in 2010 with a simple yet powerful vision: to make quality education accessible to every Ethiopian student, regardless of their geographical location or economic background.
               </p>
               <p>
                 What started as a small initiative to help rural students access educational materials has grown into Ethiopia's leading online learning platform, serving thousands of students across all regions and grade levels.
@@ -191,7 +191,7 @@ const About = () => {
                 Our journey has been guided by the belief that education is the cornerstone of individual and national development. We've witnessed countless success stories of students who have overcome challenges through education, and this continues to inspire our mission.
               </p>
               <p>
-                Today, SafHub stands as a testament to the power of combining traditional Ethiopian educational wisdom with modern technology, creating learning experiences that are both culturally relevant and globally competitive.
+                Today, EdHub stands as a testament to the power of combining traditional Ethiopian educational wisdom with modern technology, creating learning experiences that are both culturally relevant and globally competitive.
               </p>
             </div>
           </div>
@@ -232,7 +232,7 @@ const About = () => {
       {/* Call to Action */}
       <section className="container mx-auto px-4 py-20">
         <div className="bg-gradient-to-r from-emerald-600 to-blue-600 rounded-2xl p-12 text-center text-white">
-          <h2 className="text-4xl font-bold mb-4">Join the SafHub Community</h2>
+          <h2 className="text-4xl font-bold mb-4">Join the EdHub Community</h2>
           <p className="text-xl mb-8 opacity-90">
             Become part of Ethiopia's largest educational community and start your journey toward academic excellence
           </p>

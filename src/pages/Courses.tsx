@@ -231,7 +231,7 @@ const Courses = () => {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <BookOpen className="h-8 w-8 text-emerald-600" />
-            <h1 className="text-2xl font-bold text-gray-800">SafHub</h1>
+            <h1 className="text-2xl font-bold text-gray-800">EdHub</h1>
           </div>
           <div className="hidden md:flex items-center space-x-6">
             <Link to="/" className="text-gray-600 hover:text-emerald-600 transition-colors">Home</Link>

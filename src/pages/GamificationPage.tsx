@@ -132,7 +132,7 @@ const GamificationPage = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
-        <DashboardHeader title="SafHub - Achievements" />
+        <DashboardHeader title="EdHub - Achievements" />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">Loading achievements...</div>
         </div>
@@ -142,7 +142,7 @@ const GamificationPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
-      <DashboardHeader title="SafHub - Achievements" />
+      <DashboardHeader title="EdHub - Achievements" />
       
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">

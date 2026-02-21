@@ -87,7 +87,7 @@ const Index = () => {
     {
       name: "Meron Tadesse",
       grade: "Grade 12 Student",
-      content: "SafHub helped me excel in my university entrance exams. The Mathematics and Science courses are excellent!",
+      content: "EdHub helped me excel in my university entrance exams. The Mathematics and Science courses are excellent!",
       rating: 5
     },
     {
@@ -114,7 +114,7 @@ const Index = () => {
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-6">
             Master Ethiopian Education with
-            <span className="text-emerald-600 block">SafHub Learning</span>
+            <span className="text-emerald-600 block">EdHub Learning</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
             Comprehensive online learning platform designed for Ethiopian students. Access quality education aligned with the national curriculum, taught by expert educators.
@@ -141,13 +141,13 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Why Choose SafHub Section */}
+      {/* Why Choose EdHub Section */}
       <section className="bg-white/80 backdrop-blur-sm py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Why Choose SafHub?</h2>
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">Why Choose EdHub?</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Discover what makes SafHub the leading educational platform for Ethiopian students
+              Discover what makes EdHub the leading educational platform for Ethiopian students
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -240,7 +240,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">What Students Say</h2>
-            <p className="text-xl text-gray-600">Real feedback from Ethiopian students using SafHub</p>
+            <p className="text-xl text-gray-600">Real feedback from Ethiopian students using EdHub</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
@@ -267,20 +267,20 @@ const Index = () => {
       <section className="container mx-auto px-4 py-20">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
-          <p className="text-xl text-gray-600">Answers to common questions about SafHub</p>
+          <p className="text-xl text-gray-600">Answers to common questions about EdHub</p>
         </div>
         <div className="max-w-3xl mx-auto space-y-6">
           <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow">
-            <h3 className="font-semibold text-lg text-emerald-700 mb-2">Is SafHub free to use?</h3>
-            <p className="text-gray-700">SafHub offers free access to many courses and resources. Some advanced features or courses may require a subscription.</p>
+            <h3 className="font-semibold text-lg text-emerald-700 mb-2">Is EdHub free to use?</h3>
+            <p className="text-gray-700">EdHub offers free access to many courses and resources. Some advanced features or courses may require a subscription.</p>
           </div>
           <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow">
             <h3 className="font-semibold text-lg text-emerald-700 mb-2">Who are the instructors?</h3>
             <p className="text-gray-700">Our instructors are certified Ethiopian teachers and subject experts with years of classroom and online teaching experience.</p>
           </div>
           <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow">
-            <h3 className="font-semibold text-lg text-emerald-700 mb-2">Can I access SafHub on my phone?</h3>
-            <p className="text-gray-700">Yes! SafHub is fully responsive and works on smartphones, tablets, and computers.</p>
+            <h3 className="font-semibold text-lg text-emerald-700 mb-2">Can I access EdHub on my phone?</h3>
+            <p className="text-gray-700">Yes! EdHub is fully responsive and works on smartphones, tablets, and computers.</p>
           </div>
           <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow">
             <h3 className="font-semibold text-lg text-emerald-700 mb-2">How do I track my progress?</h3>
@@ -294,7 +294,7 @@ const Index = () => {
         <div className="bg-gradient-to-r from-emerald-600 to-blue-600 rounded-2xl p-12 text-center text-white">
           <h2 className="text-4xl font-bold mb-4">Ready to Start Your Learning Journey?</h2>
           <p className="text-xl mb-8 opacity-90">
-            Join thousands of Ethiopian students who are already achieving their academic goals with SafHub
+            Join thousands of Ethiopian students who are already achieving their academic goals with EdHub
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" onClick={() => setShowRegister(true)}>

@@ -130,7 +130,7 @@ const ParentDashboard = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
-        <DashboardHeader title="SafHub - Parent Dashboard" />
+        <DashboardHeader title="EdHub - Parent Dashboard" />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">Loading dashboard...</div>
         </div>
@@ -140,7 +140,7 @@ const ParentDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
-      <DashboardHeader title="SafHub - Parent Dashboard" />
+      <DashboardHeader title="EdHub - Parent Dashboard" />
       
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">

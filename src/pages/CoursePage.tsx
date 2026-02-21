@@ -399,7 +399,7 @@ const CoursePage = () => {
             </Button>
             <div className="flex items-center space-x-2">
               <BookOpen className="h-8 w-8 text-emerald-600" />
-              <h1 className="text-2xl font-bold text-gray-800">SafHub</h1>
+              <h1 className="text-2xl font-bold text-gray-800">EdHub</h1>
             </div>
           </div>
           <ProfileDropdown />

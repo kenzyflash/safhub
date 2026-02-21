@@ -32,7 +32,7 @@ interface AdminSettingsProps {
 const AdminSettings = ({ open, onOpenChange }: AdminSettingsProps) => {
   const { toast } = useToast();
   const [settings, setSettings] = useState({
-    siteName: 'SafHub',
+    siteName: 'EdHub',
     siteDescription: 'Educational platform for Ethiopian students',
     allowRegistration: true,
     emailNotifications: true,
@@ -40,7 +40,7 @@ const AdminSettings = ({ open, onOpenChange }: AdminSettingsProps) => {
     maxStudentsPerCourse: 100,
     autoApproveTeachers: false,
     backupFrequency: 'daily',
-    systemEmail: 'admin@safhub.com',
+    systemEmail: 'admin@edhub.com',
     // Security settings
     sessionTimeout: 24,
     maxLoginAttempts: 5,
@@ -112,7 +112,7 @@ const AdminSettings = ({ open, onOpenChange }: AdminSettingsProps) => {
             Enhanced System Settings
           </DialogTitle>
           <DialogDescription>
-            Configure and manage system-wide settings for SafHub with enhanced security controls
+            Configure and manage system-wide settings for EdHub with enhanced security controls
           </DialogDescription>
         </DialogHeader>
 

@@ -233,7 +233,7 @@ const ForumPostDetailPage = () => {
   if (loading || !post) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
-        <DashboardHeader title="SafHub - Forum" />
+        <DashboardHeader title="EdHub - Forum" />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">Loading post...</div>
         </div>
@@ -243,7 +243,7 @@ const ForumPostDetailPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
-      <DashboardHeader title="SafHub - Forum" />
+      <DashboardHeader title="EdHub - Forum" />
       
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
