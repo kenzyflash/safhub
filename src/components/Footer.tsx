@@ -15,7 +15,7 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <BookOpen className="h-8 w-8 text-emerald-400" />
-              <h3 className="text-2xl font-bold">SafHub</h3>
+              <h3 className="text-2xl font-bold">EdHub</h3>
             </div>
             <p className="text-gray-300 text-sm">
               {t('footer.description')}
@@ -71,7 +71,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400 text-sm">
-            © {currentYear} SafHub. {t('footer.copyright')}
+            © {currentYear} EdHub. {t('footer.copyright')}
           </p>
         </div>
       </div>

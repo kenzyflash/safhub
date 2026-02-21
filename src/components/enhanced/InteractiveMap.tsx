@@ -27,7 +27,7 @@ const InteractiveMap = () => {
 
         // @ts-ignore
         L.marker([9.0192, 38.7525]).addTo(map)
-          .bindPopup('SafHub Education Center<br>Addis Ababa, Ethiopia')
+          .bindPopup('EdHub Education Center<br>Addis Ababa, Ethiopia')
           .openPopup();
       }
     };
@@ -65,7 +65,7 @@ const InteractiveMap = () => {
           </div>
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <Mail className="h-4 w-4" />
-            <span>info@safhub.com</span>
+            <span>info@edhub.com</span>
           </div>
         </div>
       </CardContent>

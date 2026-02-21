@@ -20,7 +20,7 @@
     "success": "ተሳክቷል"
   },
   "header": {
-    "title": "ሳፍሀብ - የኢትዮጵያ ትምህርትን ማጎልበት",
+    "title": "ኤድሀብ - የኢትዮጵያ ትምህርትን ማጎልበት",
     "subtitle": "በማንኛውም ጊዜ፣ በማንኛውም ቦታ የሚገኝ ጥራት ያለው ትምህርት"
   },
   "footer": {
@@ -30,14 +30,14 @@
     "contactInfo": "የመገናኛ መረጃ",
     "address": "አዲስ አበባ፣ ኢትዮጵያ",
     "phone": "+251 11 123 4567",
-    "email": "info@safhub.et",
+    "email": "info@edhub.et",
     "copyright": "ሁሉም መብቶች የተጠበቁ ናቸው።"
   },
   "auth": {
     "loginTitle": "እንኳን ደህና መጡ",
     "loginSubtitle": "ትምህርትዎን ለመቀጠል ወደ መለያዎ ይግቡ",
     "registerTitle": "መለያ ይፍጠሩ",
-    "registerSubtitle": "ሳፍሀብን በመቀላቀል የትምህርት ጉዞዎን ይጀምሩ",
+    "registerSubtitle": "ኤድሀብን በመቀላቀል የትምህርት ጉዞዎን ይጀምሩ",
     "email": "ኢሜይል",
     "password": "የይለፍ ቃል",
     "confirmPassword": "የይለፍ ቃል አረጋግጥ",

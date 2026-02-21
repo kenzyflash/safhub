@@ -20,7 +20,7 @@
     "success": "Success"
   },
   "header": {
-    "title": "SafHub - Empowering Ethiopian Education",
+    "title": "EdHub - Empowering Ethiopian Education",
     "subtitle": "Quality education accessible anytime, anywhere"
   },
   "footer": {
@@ -30,14 +30,14 @@
     "contactInfo": "Contact Info",
     "address": "Addis Ababa, Ethiopia",
     "phone": "+251 11 123 4567",
-    "email": "info@safhub.et",
+    "email": "info@edhub.et",
     "copyright": "All rights reserved."
   },
   "auth": {
     "loginTitle": "Welcome Back",
     "loginSubtitle": "Sign in to your account to continue learning",
     "registerTitle": "Create Account",
-    "registerSubtitle": "Join SafHub and start your learning journey",
+    "registerSubtitle": "Join EdHub and start your learning journey",
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm Password",

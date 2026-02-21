@@ -1,4 +1,4 @@
-# SafHub - Ethiopian Online Learning Platform
+# EdHub - Ethiopian Online Learning Platform
 
 <div align="center">
   <h3>🎓 Empowering Ethiopian Students Through Technology 🇪🇹</h3>
@@ -9,7 +9,7 @@
 
 ## 🚀 Quick Start
 
-Get SafHub running locally in 5 steps:
+Get EdHub running locally in 5 steps:
 
 ```bash
 # 1. Clone the repository
@@ -122,7 +122,7 @@ npm run dev
 ## 📁 Project Structure
 
 ```
-SafHub/
+EdHub/
 ├── src/
 │   ├── components/          # Reusable UI components
 │   │   ├── auth/           # Authentication components
@@ -237,7 +237,7 @@ See [Testing Guide](docs/TESTING.md) for more information.
 
 ## 📊 Database Schema
 
-SafHub uses Supabase (PostgreSQL) with the following core tables:
+EdHub uses Supabase (PostgreSQL) with the following core tables:
 - `profiles` - User profile information
 - `user_roles` - Role-based access control
 - `courses` - Course metadata
@@ -254,7 +254,7 @@ See [Database Schema Documentation](docs/developer/DATABASE-SCHEMA.md) for compl
 
 ## 🔐 Security
 
-SafHub implements multiple layers of security:
+EdHub implements multiple layers of security:
 - **Row Level Security (RLS)** on all tables
 - **Audit logging** for sensitive operations
 - **Role-based access control (RBAC)**
@@ -268,7 +268,7 @@ See [Security Guidelines](docs/SECURITY.md) for best practices.
 
 ## 📝 License
 
-This project is part of an educational initiative. All rights reserved by the SafHub team.
+This project is part of an educational initiative. All rights reserved by the EdHub team.
 
 ---
 
@@ -293,10 +293,10 @@ This project is part of an educational initiative. All rights reserved by the Sa
 
 Need help? Reach out to us:
 
-- **Email:** info@safhub.com
+- **Email:** info@edhub.com
 - **Phone:** +251 (911) 123-456
 - **Address:** Education Center, Addis Ababa, Ethiopia
-- **Documentation:** [docs.safhub.com](https://docs.safhub.com) (coming soon)
+- **Documentation:** [docs.edhub.com](https://docs.edhub.com) (coming soon)
 
 ---
 
