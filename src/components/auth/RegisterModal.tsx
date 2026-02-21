@@ -48,7 +48,6 @@ const RegisterModal = ({ open, onOpenChange, onSwitchToLogin }: RegisterModalPro
         last_name: formData.lastName,
         school: formData.school,
         grade: formData.grade,
-        role: formData.role
       };
 
       await signUp(formData.email, formData.password, userData);

@@ -386,8 +386,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         throw new Error('Password must be at least 6 characters long');
       }
 
-      const defaultRole = 'student';
-
       const { error } = await supabase.auth.signUp({
         email: cleanEmail,
         password,
@@ -397,7 +395,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             last_name: cleanLastName,
             school: cleanSchool,
             grade: cleanGrade,
-            role: defaultRole
           },
           emailRedirectTo: `${window.location.origin}/`
         }
