@@ -62,6 +62,7 @@ const CoursePage = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
   const { user, userRole, loading } = useAuth();
+  const { t } = useLanguage();
   const { toast } = useToast();
   
   const [course, setCourse] = useState<Course | null>(null);
