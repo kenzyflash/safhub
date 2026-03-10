@@ -354,7 +354,7 @@ const CoursePage = () => {
       <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">Unable to Load Course</h2>
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">{t('coursePage.unableToLoad')}</h2>
           <p className="text-gray-600 mb-4">{error}</p>
           <div className="space-x-2">
             <Button onClick={handleRetry} className="bg-emerald-600 hover:bg-emerald-700">
