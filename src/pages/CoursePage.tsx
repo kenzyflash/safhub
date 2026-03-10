@@ -527,7 +527,7 @@ const CoursePage = () => {
                               className="bg-emerald-600 hover:bg-emerald-700"
                             >
                               <CheckCircle className="mr-2 h-4 w-4" />
-                              Mark as Complete
+                              {t('coursePage.markAsComplete')}
                             </Button>
                           )}
                           
