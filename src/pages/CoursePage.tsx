@@ -20,6 +20,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import ProfileDropdown from "@/components/ProfileDropdown";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -61,6 +62,7 @@ const CoursePage = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
   const { user, userRole, loading } = useAuth();
+  const { t } = useLanguage();
   const { toast } = useToast();
   
   const [course, setCourse] = useState<Course | null>(null);
@@ -352,16 +354,16 @@ const CoursePage = () => {
       <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">Unable to Load Course</h2>
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">{t('coursePage.unableToLoad')}</h2>
           <p className="text-gray-600 mb-4">{error}</p>
           <div className="space-x-2">
             <Button onClick={handleRetry} className="bg-emerald-600 hover:bg-emerald-700">
               <RefreshCw className="h-4 w-4 mr-2" />
-              Try Again
+              {t('coursePage.tryAgain')}
             </Button>
             <Button variant="outline" onClick={() => navigate(getDashboardUrl())}>
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
+              {t('coursePage.backToDashboard')}
             </Button>
           </div>
         </div>
@@ -375,8 +377,8 @@ const CoursePage = () => {
       <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 flex items-center justify-center">
         <div className="text-center">
           <BookOpen className="h-16 w-16 text-emerald-600 mx-auto mb-4 animate-spin" />
-          <p className="text-gray-600">Loading course content...</p>
-          <p className="text-sm text-gray-500 mt-2">This should only take a moment</p>
+          <p className="text-gray-600">{t('coursePage.loadingCourse')}</p>
+          <p className="text-sm text-gray-500 mt-2">{t('coursePage.loadingMoment')}</p>
         </div>
       </div>
     );
@@ -396,7 +398,7 @@ const CoursePage = () => {
           <div className="flex items-center space-x-4">
             <Button variant="ghost" onClick={() => navigate(getDashboardUrl())}>
               <ArrowLeft className="h-5 w-5 mr-2" />
-              Back to Dashboard
+              {t('coursePage.backToDashboard')}
             </Button>
             <div className="flex items-center space-x-2">
               <BookOpen className="h-8 w-8 text-emerald-600" />
@@ -438,8 +440,8 @@ const CoursePage = () => {
 
               <div className="mb-4">
                 <div className="flex justify-between text-sm text-gray-600 mb-1">
-                  <span>Course Progress</span>
-                  <span>{getCompletedLessonsCount()}/{lessons.length} lessons completed</span>
+                  <span>{t('coursePage.courseProgress')}</span>
+                  <span>{getCompletedLessonsCount()}/{lessons.length} {t('coursePage.lessonsCompleted')}</span>
                 </div>
                 <Progress value={getCourseProgress()} className="h-2" />
               </div>
@@ -466,7 +468,7 @@ const CoursePage = () => {
                   className="bg-emerald-600 hover:bg-emerald-700"
                 >
                   <Download className="mr-2 h-4 w-4" />
-                  Download Certificate
+                  {t('coursePage.downloadCertificate')}
                 </Button>
               )}
             </div>
@@ -479,9 +481,9 @@ const CoursePage = () => {
           <div className="lg:col-span-2">
             <Tabs defaultValue="video" className="space-y-6">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="video">Video Lesson</TabsTrigger>
-                <TabsTrigger value="discussion">Discussion</TabsTrigger>
-                <TabsTrigger value="assignments">Assignments</TabsTrigger>
+                <TabsTrigger value="video">{t('coursePage.videoLesson')}</TabsTrigger>
+                <TabsTrigger value="discussion">{t('coursePage.discussion')}</TabsTrigger>
+                <TabsTrigger value="assignments">{t('coursePage.assignments')}</TabsTrigger>
               </TabsList>
 
               <TabsContent value="video" className="space-y-6">
@@ -508,7 +510,7 @@ const CoursePage = () => {
                                 className="bg-green-600 hover:bg-green-700"
                               >
                                 <CheckCircle className="mr-2 h-4 w-4" />
-                                Completed
+                                {t('coursePage.completed')}
                               </Button>
                               <Button 
                                 variant="outline"
@@ -516,7 +518,7 @@ const CoursePage = () => {
                                 className="border-red-200 text-red-600 hover:bg-red-50"
                               >
                                 <X className="mr-2 h-4 w-4" />
-                                Remove Completion
+                                {t('coursePage.removeCompletion')}
                               </Button>
                             </div>
                           ) : (
@@ -525,7 +527,7 @@ const CoursePage = () => {
                               className="bg-emerald-600 hover:bg-emerald-700"
                             >
                               <CheckCircle className="mr-2 h-4 w-4" />
-                              Mark as Complete
+                              {t('coursePage.markAsComplete')}
                             </Button>
                           )}
                           
@@ -535,7 +537,7 @@ const CoursePage = () => {
                                 variant="outline"
                                 onClick={() => setSelectedLesson(selectedLesson - 1)}
                               >
-                                Previous Lesson
+                                {t('coursePage.previousLesson')}
                               </Button>
                             )}
                             {selectedLesson < lessons.length - 1 && (
@@ -543,7 +545,7 @@ const CoursePage = () => {
                                 variant="outline"
                                 onClick={() => setSelectedLesson(selectedLesson + 1)}
                               >
-                                Next Lesson
+                                {t('coursePage.nextLesson')}
                               </Button>
                             )}
                           </div>
@@ -568,9 +570,9 @@ const CoursePage = () => {
           <div>
             <Card className="bg-white/80 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle>Course Lessons</CardTitle>
+                <CardTitle>{t('coursePage.courseLessons')}</CardTitle>
                 <CardDescription>
-                  {getCompletedLessonsCount()} of {lessons.length} lessons completed
+                  {getCompletedLessonsCount()} / {lessons.length} {t('coursePage.lessonsCompleted')}
                 </CardDescription>
               </CardHeader>
               <CardContent>

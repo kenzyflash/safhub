@@ -1,18 +1,10 @@
-
 import { useState, useEffect } from "react";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  BookOpen, 
-  CheckCircle, 
-  LayoutDashboard, 
-  ListChecks,
-  BarChart3,
-  Trophy,
-  Star
-} from "lucide-react";
+import { BookOpen, CheckCircle, LayoutDashboard, ListChecks, BarChart3, Trophy, Star } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardStats from "@/components/dashboard/DashboardStats";
@@ -23,6 +15,7 @@ import { useCourseData } from "@/hooks/useCourseData";
 
 const StudentDashboard = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const { courses, loading: coursesLoading } = useCourseData();
   const [enrolledCourses, setEnrolledCourses] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -78,9 +71,9 @@ const StudentDashboard = () => {
     : 0;
 
   const stats = [
-    { label: "Enrolled Courses", value: totalCourses.toString(), icon: BookOpen, color: "text-blue-600" },
-    { label: "Completed Courses", value: completedCourses.toString(), icon: CheckCircle, color: "text-green-600" },
-    { label: "Average Progress", value: averageProgress.toFixed(1) + "%", icon: BarChart3, color: "text-purple-600" },
+    { label: t('studentDashboard.enrolledCourses'), value: totalCourses.toString(), icon: BookOpen, color: "text-blue-600" },
+    { label: t('studentDashboard.completedCourses'), value: completedCourses.toString(), icon: CheckCircle, color: "text-green-600" },
+    { label: t('studentDashboard.averageProgress'), value: averageProgress.toFixed(1) + "%", icon: BarChart3, color: "text-purple-600" },
   ];
 
   // Award achievements based on activities
@@ -103,7 +96,7 @@ const StudentDashboard = () => {
         <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
           <DashboardHeader title="EdHub - Student" />
           <div className="container mx-auto px-4 py-8">
-            <div className="text-center">Loading dashboard...</div>
+            <div className="text-center">{t('dashboard.loadingDashboard')}</div>
           </div>
         </div>
       </ProtectedRoute>
@@ -120,20 +113,20 @@ const StudentDashboard = () => {
             <div className="flex justify-between items-start">
               <div>
                 <h1 className="text-3xl font-bold text-gray-800 mb-2">
-                  Welcome back, Student!
+                  {t('studentDashboard.welcomeStudent')}
                 </h1>
-                <p className="text-gray-600">Continue your learning journey.</p>
+                <p className="text-gray-600">{t('studentDashboard.continueJourney')}</p>
               </div>
               
               {/* Gamification Progress */}
               <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 min-w-[200px]">
                 <div className="flex items-center gap-3 mb-2">
                   <Star className="h-5 w-5 text-yellow-500" />
-                  <span className="font-semibold">Level {userLevel}</span>
+                  <span className="font-semibold">{t('studentDashboard.level')} {userLevel}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                   <Trophy className="h-4 w-4" />
-                  <span>{userPoints} points</span>
+                  <span>{userPoints} {t('studentDashboard.points')}</span>
                 </div>
               </div>
             </div>
@@ -154,14 +147,14 @@ const StudentDashboard = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <ListChecks className="h-5 w-5 text-blue-600" />
-                    Upcoming Assignments
+                    {t('studentDashboard.upcomingAssignments')}
                   </CardTitle>
-                  <CardDescription>Stay on top of your deadlines</CardDescription>
+                  <CardDescription>{t('studentDashboard.stayOnTop')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-4">
                     <LayoutDashboard className="h-10 w-10 mx-auto mb-3 text-gray-300" />
-                    <p className="text-sm text-gray-500">No upcoming assignments</p>
+                    <p className="text-sm text-gray-500">{t('studentDashboard.noAssignments')}</p>
                   </div>
                 </CardContent>
               </Card>
