@@ -377,8 +377,8 @@ const CoursePage = () => {
       <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 flex items-center justify-center">
         <div className="text-center">
           <BookOpen className="h-16 w-16 text-emerald-600 mx-auto mb-4 animate-spin" />
-          <p className="text-gray-600">Loading course content...</p>
-          <p className="text-sm text-gray-500 mt-2">This should only take a moment</p>
+          <p className="text-gray-600">{t('coursePage.loadingCourse')}</p>
+          <p className="text-sm text-gray-500 mt-2">{t('coursePage.loadingMoment')}</p>
         </div>
       </div>
     );
