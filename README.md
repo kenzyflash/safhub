@@ -32,7 +32,7 @@ npm run dev
 
 ## 📚 Documentation
 
-- **[Complete Platform Documentation](docs/SafHub-Platform-Documentation.md)** - Comprehensive guide covering all aspects
+- **[Complete Platform Documentation](docs/SafHub-Platform-Documentation.md)** - Comprehensive guide covering all aspects (note: filename retained for compatibility)
 - **[Developer Guide](docs/developer/DEVELOPER-GUIDE.md)** - Technical implementation details
 - **[Admin Manual](docs/admin/ADMIN-GUIDE.md)** - Platform administration guide
 - **[User Guides](docs/user/)** - Student, Teacher, and Parent guides
