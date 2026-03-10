@@ -359,7 +359,7 @@ const CoursePage = () => {
           <div className="space-x-2">
             <Button onClick={handleRetry} className="bg-emerald-600 hover:bg-emerald-700">
               <RefreshCw className="h-4 w-4 mr-2" />
-              Try Again
+              {t('coursePage.tryAgain')}
             </Button>
             <Button variant="outline" onClick={() => navigate(getDashboardUrl())}>
               <ArrowLeft className="h-4 w-4 mr-2" />
