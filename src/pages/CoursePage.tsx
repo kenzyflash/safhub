@@ -398,7 +398,7 @@ const CoursePage = () => {
           <div className="flex items-center space-x-4">
             <Button variant="ghost" onClick={() => navigate(getDashboardUrl())}>
               <ArrowLeft className="h-5 w-5 mr-2" />
-              Back to Dashboard
+              {t('coursePage.backToDashboard')}
             </Button>
             <div className="flex items-center space-x-2">
               <BookOpen className="h-8 w-8 text-emerald-600" />
