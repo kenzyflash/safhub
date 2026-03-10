@@ -545,7 +545,7 @@ const CoursePage = () => {
                                 variant="outline"
                                 onClick={() => setSelectedLesson(selectedLesson + 1)}
                               >
-                                Next Lesson
+                                {t('coursePage.nextLesson')}
                               </Button>
                             )}
                           </div>
