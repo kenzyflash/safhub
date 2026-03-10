@@ -518,7 +518,7 @@ const CoursePage = () => {
                                 className="border-red-200 text-red-600 hover:bg-red-50"
                               >
                                 <X className="mr-2 h-4 w-4" />
-                                Remove Completion
+                                {t('coursePage.removeCompletion')}
                               </Button>
                             </div>
                           ) : (
