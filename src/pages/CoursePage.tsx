@@ -443,6 +443,32 @@ const CoursePage = () => {
                 </div>
                 <Progress value={getCourseProgress()} className="h-2" />
               </div>
+
+              {getCourseProgress() === 100 && (
+                <Button
+                  onClick={() => {
+                    const userName = user.user_metadata?.first_name && user.user_metadata?.last_name
+                      ? `${user.user_metadata.first_name} ${user.user_metadata.last_name}`
+                      : user.email || 'Student';
+                    generateCertificate({
+                      studentName: userName,
+                      courseTitle: course.title,
+                      completionDate: new Date().toLocaleDateString('en-US', {
+                        year: 'numeric', month: 'long', day: 'numeric'
+                      }),
+                      instructorName: course.instructor_name,
+                    });
+                    toast({
+                      title: "Certificate Downloaded!",
+                      description: "Your certificate of completion has been saved.",
+                    });
+                  }}
+                  className="bg-emerald-600 hover:bg-emerald-700"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Download Certificate
+                </Button>
+              )}
             </div>
           </div>
         </div>
