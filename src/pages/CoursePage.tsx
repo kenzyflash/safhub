@@ -26,6 +26,7 @@ import { useToast } from "@/hooks/use-toast";
 import VideoPlayer from "@/components/course/VideoPlayer";
 import CourseDiscussion from "@/components/course/CourseDiscussion";
 import AssignmentSubmission from "@/components/course/AssignmentSubmission";
+import { generateCertificate } from "@/utils/generateCertificate";
 
 interface Course {
   id: string;
