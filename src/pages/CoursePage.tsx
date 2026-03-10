@@ -468,7 +468,7 @@ const CoursePage = () => {
                   className="bg-emerald-600 hover:bg-emerald-700"
                 >
                   <Download className="mr-2 h-4 w-4" />
-                  Download Certificate
+                  {t('coursePage.downloadCertificate')}
                 </Button>
               )}
             </div>
