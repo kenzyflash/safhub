@@ -481,9 +481,9 @@ const CoursePage = () => {
           <div className="lg:col-span-2">
             <Tabs defaultValue="video" className="space-y-6">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="video">Video Lesson</TabsTrigger>
-                <TabsTrigger value="discussion">Discussion</TabsTrigger>
-                <TabsTrigger value="assignments">Assignments</TabsTrigger>
+                <TabsTrigger value="video">{t('coursePage.videoLesson')}</TabsTrigger>
+                <TabsTrigger value="discussion">{t('coursePage.discussion')}</TabsTrigger>
+                <TabsTrigger value="assignments">{t('coursePage.assignments')}</TabsTrigger>
               </TabsList>
 
               <TabsContent value="video" className="space-y-6">
