@@ -570,9 +570,9 @@ const CoursePage = () => {
           <div>
             <Card className="bg-white/80 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle>Course Lessons</CardTitle>
+                <CardTitle>{t('coursePage.courseLessons')}</CardTitle>
                 <CardDescription>
-                  {getCompletedLessonsCount()} of {lessons.length} lessons completed
+                  {getCompletedLessonsCount()} / {lessons.length} {t('coursePage.lessonsCompleted')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
