@@ -440,8 +440,8 @@ const CoursePage = () => {
 
               <div className="mb-4">
                 <div className="flex justify-between text-sm text-gray-600 mb-1">
-                  <span>Course Progress</span>
-                  <span>{getCompletedLessonsCount()}/{lessons.length} lessons completed</span>
+                  <span>{t('coursePage.courseProgress')}</span>
+                  <span>{getCompletedLessonsCount()}/{lessons.length} {t('coursePage.lessonsCompleted')}</span>
                 </div>
                 <Progress value={getCourseProgress()} className="h-2" />
               </div>
