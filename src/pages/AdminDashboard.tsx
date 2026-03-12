@@ -412,8 +412,8 @@ const AdminDashboard = () => {
                 <div className="lg:col-span-2 space-y-6">
                   <Card className="bg-white/80 backdrop-blur-sm">
                     <CardHeader>
-                      <CardTitle>Quick Actions</CardTitle>
-                      <CardDescription>Common administrative tasks</CardDescription>
+                      <CardTitle>{t('adminDashboard.quickActions')}</CardTitle>
+                      <CardDescription>{t('adminDashboard.commonTasks')}</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
