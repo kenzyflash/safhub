@@ -431,7 +431,7 @@ const AdminDashboard = () => {
                           onClick={() => setActiveTab('contact')}
                         >
                           <MessageSquare className="h-4 w-4" />
-                          View Contact Forms
+                          {t('adminDashboard.viewContactForms')}
                         </Button>
                         <Button
                           variant="outline"
