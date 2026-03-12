@@ -72,28 +72,6 @@ export const useGamification = () => {
     if (!user) return false;
 
     try {
-      const { data: achievement } = await supabase
-        .from('achievements')
-        .select('*')
-        .eq('name', achievementName)
-        .single();
-
-      if (!achievement) {
-        console.log('Achievement not found:', achievementName);
-        return false;
-      }
-
-      // Check if user already has this achievement
-      const { data: existingAward } = await supabase
-        .from('user_achievements')
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('achievement_id', achievement.id)
-        .single();
-
-      if (existingAward) {
-        return false; // Already has achievement
-      }
 
       // Award the achievement via secure RPC
       const { data: awarded, error: awardError } = await supabase
