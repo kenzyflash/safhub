@@ -530,7 +530,7 @@ const AdminDashboard = () => {
                           className="w-full"
                           onClick={fetchSystemOverview}
                         >
-                          Refresh Metrics
+                          {t('adminDashboard.refreshMetrics')}
                         </Button>
                       </div>
                     </CardContent>
