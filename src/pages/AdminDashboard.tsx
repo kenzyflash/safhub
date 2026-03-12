@@ -27,13 +27,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const AdminDashboard = () => {
   const { user, userRole } = useAuth();
+  const { t } = useLanguage();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
   const [systemStats, setSystemStats] = useState([
-    { label: "Total Users", value: "0", icon: Users, color: "text-blue-600", change: "+0%" },
-    { label: "Active Courses", value: "0", icon: BookOpen, color: "text-green-600", change: "+0%" },
-    { label: "Teachers", value: "0", icon: GraduationCap, color: "text-purple-600", change: "+0%" },
-    { label: "Monthly Revenue", value: "0 USD", icon: TrendingUp, color: "text-orange-600", change: "+0%" }
+    { label: t('adminDashboard.totalUsers'), value: "0", icon: Users, color: "text-blue-600", change: "+0%" },
+    { label: t('adminDashboard.activeCourses'), value: "0", icon: BookOpen, color: "text-green-600", change: "+0%" },
+    { label: t('adminDashboard.teachers'), value: "0", icon: GraduationCap, color: "text-purple-600", change: "+0%" },
+    { label: t('adminDashboard.monthlyRevenue'), value: "0 USD", icon: TrendingUp, color: "text-orange-600", change: "+0%" }
   ]);
   const [recentActions, setRecentActions] = useState<any[]>([]);
   const [systemOverview, setSystemOverview] = useState({
