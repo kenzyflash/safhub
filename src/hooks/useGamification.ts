@@ -56,20 +56,10 @@ export const useGamification = () => {
         return;
       }
 
-      // If no user_points record exists, create one
+      // If no user_points record exists, default to 0
       if (pointsError && pointsError.code === 'PGRST116') {
-        const { error: insertError } = await supabase
-          .from('user_points')
-          .insert({
-            user_id: user.id,
-            total_points: 0,
-            level: 1
-          });
-        
-        if (!insertError) {
-          setUserPoints(0);
-          setUserLevel(1);
-        }
+        setUserPoints(0);
+        setUserLevel(1);
       }
     } catch (error) {
       console.error('Error fetching user points:', error);
