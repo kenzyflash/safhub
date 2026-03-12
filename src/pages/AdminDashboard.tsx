@@ -500,9 +500,9 @@ const AdminDashboard = () => {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <BarChart3 className="h-5 w-5 text-purple-600" />
-                        System Overview
+                        {t('adminDashboard.systemOverview')}
                       </CardTitle>
-                      <CardDescription>Real-time system health and metrics</CardDescription>
+                      <CardDescription>{t('adminDashboard.systemHealth')}</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-3">
