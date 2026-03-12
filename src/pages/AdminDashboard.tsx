@@ -367,10 +367,10 @@ const AdminDashboard = () => {
 
         <div className="container mx-auto px-4 py-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Administrator Dashboard</h1>
-            <p className="text-gray-600">Monitor and manage the EdHub platform.</p>
+            <h1 className="text-3xl font-bold text-foreground mb-2">{t('adminDashboard.title')}</h1>
+            <p className="text-muted-foreground">{t('adminDashboard.subtitle')}</p>
             {error && (
-              <div className="mt-2 p-3 bg-red-100 border border-red-300 text-red-700 rounded">
+              <div className="mt-2 p-3 bg-destructive/10 border border-destructive/30 text-destructive rounded">
                 {error}
                 <Button 
                   variant="outline" 
@@ -378,7 +378,7 @@ const AdminDashboard = () => {
                   className="ml-2"
                   onClick={handleRetry}
                 >
-                  Retry
+                  {t('common.retry')}
                 </Button>
               </div>
             )}
