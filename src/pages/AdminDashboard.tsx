@@ -507,19 +507,19 @@ const AdminDashboard = () => {
                     <CardContent>
                       <div className="space-y-3">
                         <div className="flex justify-between text-sm">
-                          <span>Server Uptime</span>
+                          <span>{t('adminDashboard.serverUptime')}</span>
                           <span className="font-medium text-green-600">{systemOverview.serverUptime}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span>Database Size</span>
+                          <span>{t('adminDashboard.databaseSize')}</span>
                           <span className="font-medium">{systemOverview.databaseSize}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span>Active Sessions (1hr)</span>
+                          <span>{t('adminDashboard.activeSessions')}</span>
                           <span className="font-medium text-blue-600">{systemOverview.activeSessions}</span>
                         </div>
                         <div className="flex justify-between text-sm cursor-pointer" onClick={() => setActiveTab('contact')}>
-                          <span>Support Tickets</span>
+                          <span>{t('adminDashboard.supportTickets')}</span>
                           <span className="font-medium text-orange-600 hover:underline">{systemOverview.supportTickets}</span>
                         </div>
                       </div>
