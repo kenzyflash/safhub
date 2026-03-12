@@ -56,20 +56,10 @@ export const useGamification = () => {
         return;
       }
 
-      // If no user_points record exists, create one
+      // If no user_points record exists, default to 0
       if (pointsError && pointsError.code === 'PGRST116') {
-        const { error: insertError } = await supabase
-          .from('user_points')
-          .insert({
-            user_id: user.id,
-            total_points: 0,
-            level: 1
-          });
-        
-        if (!insertError) {
-          setUserPoints(0);
-          setUserLevel(1);
-        }
+        setUserPoints(0);
+        setUserLevel(1);
       }
     } catch (error) {
       console.error('Error fetching user points:', error);
@@ -82,35 +72,12 @@ export const useGamification = () => {
     if (!user) return false;
 
     try {
-      const { data: achievement } = await supabase
-        .from('achievements')
-        .select('*')
-        .eq('name', achievementName)
-        .single();
 
-      if (!achievement) {
-        console.log('Achievement not found:', achievementName);
-        return false;
-      }
-
-      // Check if user already has this achievement
-      const { data: existingAward } = await supabase
-        .from('user_achievements')
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('achievement_id', achievement.id)
-        .single();
-
-      if (existingAward) {
-        return false; // Already has achievement
-      }
-
-      // Award the achievement
-      const { error: awardError } = await supabase
-        .from('user_achievements')
-        .insert({
-          user_id: user.id,
-          achievement_id: achievement.id
+      // Award the achievement via secure RPC
+      const { data: awarded, error: awardError } = await supabase
+        .rpc('award_achievement', {
+          user_id_param: user.id,
+          achievement_name_param: achievementName
         });
 
       if (awardError) {
@@ -118,20 +85,12 @@ export const useGamification = () => {
         return false;
       }
 
-      // Update user points
-      const achievementPoints = achievement.points || 0;
-      const { error: pointsError } = await supabase
-        .from('user_points')
-        .upsert({
-          user_id: user.id,
-          total_points: userPoints + achievementPoints,
-          level: Math.floor((userPoints + achievementPoints) / 50) + 1
-        });
-
-      if (!pointsError) {
-        setUserPoints(prev => prev + achievementPoints);
-        setUserLevel(Math.floor((userPoints + achievementPoints) / 50) + 1);
+      if (!awarded) {
+        return false;
       }
+
+      // Refresh points from server
+      await fetchUserPoints();
 
       return true;
     } catch (error) {
