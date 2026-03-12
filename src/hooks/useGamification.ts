@@ -95,12 +95,11 @@ export const useGamification = () => {
         return false; // Already has achievement
       }
 
-      // Award the achievement
-      const { error: awardError } = await supabase
-        .from('user_achievements')
-        .insert({
-          user_id: user.id,
-          achievement_id: achievement.id
+      // Award the achievement via secure RPC
+      const { data: awarded, error: awardError } = await supabase
+        .rpc('award_achievement', {
+          user_id_param: user.id,
+          achievement_name_param: achievementName
         });
 
       if (awardError) {
@@ -108,20 +107,12 @@ export const useGamification = () => {
         return false;
       }
 
-      // Update user points
-      const achievementPoints = achievement.points || 0;
-      const { error: pointsError } = await supabase
-        .from('user_points')
-        .upsert({
-          user_id: user.id,
-          total_points: userPoints + achievementPoints,
-          level: Math.floor((userPoints + achievementPoints) / 50) + 1
-        });
-
-      if (!pointsError) {
-        setUserPoints(prev => prev + achievementPoints);
-        setUserLevel(Math.floor((userPoints + achievementPoints) / 50) + 1);
+      if (!awarded) {
+        return false;
       }
+
+      // Refresh points from server
+      await fetchUserPoints();
 
       return true;
     } catch (error) {
