@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
+import { useLanguage } from "@/contexts/LanguageContext";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardStats from "@/components/dashboard/DashboardStats";
 import UserManagement from "@/components/dashboard/UserManagement";
@@ -26,13 +27,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const AdminDashboard = () => {
   const { user, userRole } = useAuth();
+  const { t } = useLanguage();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
   const [systemStats, setSystemStats] = useState([
-    { label: "Total Users", value: "0", icon: Users, color: "text-blue-600", change: "+0%" },
-    { label: "Active Courses", value: "0", icon: BookOpen, color: "text-green-600", change: "+0%" },
-    { label: "Teachers", value: "0", icon: GraduationCap, color: "text-purple-600", change: "+0%" },
-    { label: "Monthly Revenue", value: "0 USD", icon: TrendingUp, color: "text-orange-600", change: "+0%" }
+    { label: t('adminDashboard.totalUsers'), value: "0", icon: Users, color: "text-blue-600", change: "+0%" },
+    { label: t('adminDashboard.activeCourses'), value: "0", icon: BookOpen, color: "text-green-600", change: "+0%" },
+    { label: t('adminDashboard.teachers'), value: "0", icon: GraduationCap, color: "text-purple-600", change: "+0%" },
+    { label: t('adminDashboard.monthlyRevenue'), value: "0 USD", icon: TrendingUp, color: "text-orange-600", change: "+0%" }
   ]);
   const [recentActions, setRecentActions] = useState<any[]>([]);
   const [systemOverview, setSystemOverview] = useState({
@@ -123,28 +125,28 @@ const AdminDashboard = () => {
 
       setSystemStats([
         { 
-          label: "Total Users", 
+          label: t('adminDashboard.totalUsers'), 
           value: (totalUsers || 0).toString(), 
           icon: Users, 
           color: "text-blue-600", 
           change: "+12%" 
         },
         { 
-          label: "Active Courses", 
+          label: t('adminDashboard.activeCourses'), 
           value: (totalCourses || 0).toString(), 
           icon: BookOpen, 
           color: "text-green-600", 
           change: "+8%" 
         },
         { 
-          label: "Teachers", 
+          label: t('adminDashboard.teachers'), 
           value: (teachersCount || 0).toString(), 
           icon: GraduationCap, 
           color: "text-purple-600", 
           change: "+5%" 
         },
         { 
-          label: "Monthly Revenue", 
+          label: t('adminDashboard.monthlyRevenue'), 
           value: `$${estimatedRevenue}`, 
           icon: TrendingUp, 
           color: "text-orange-600", 
@@ -345,8 +347,8 @@ const AdminDashboard = () => {
           <DashboardHeader title="EdHub - Admin" />
           <div className="container mx-auto px-4 py-8">
             <div className="flex items-center justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
-              <span className="ml-3 text-lg">Loading admin dashboard...</span>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+              <span className="ml-3 text-lg">{t('adminDashboard.loadingAdmin')}</span>
             </div>
           </div>
         </div>
@@ -365,10 +367,10 @@ const AdminDashboard = () => {
 
         <div className="container mx-auto px-4 py-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Administrator Dashboard</h1>
-            <p className="text-gray-600">Monitor and manage the EdHub platform.</p>
+            <h1 className="text-3xl font-bold text-foreground mb-2">{t('adminDashboard.title')}</h1>
+            <p className="text-muted-foreground">{t('adminDashboard.subtitle')}</p>
             {error && (
-              <div className="mt-2 p-3 bg-red-100 border border-red-300 text-red-700 rounded">
+              <div className="mt-2 p-3 bg-destructive/10 border border-destructive/30 text-destructive rounded">
                 {error}
                 <Button 
                   variant="outline" 
@@ -376,7 +378,7 @@ const AdminDashboard = () => {
                   className="ml-2"
                   onClick={handleRetry}
                 >
-                  Retry
+                  {t('common.retry')}
                 </Button>
               </div>
             )}
@@ -387,15 +389,15 @@ const AdminDashboard = () => {
             <TabsList className="grid w-full grid-cols-3 mb-6">
               <TabsTrigger value="overview" className="flex items-center gap-2">
                 <BarChart3 className="h-4 w-4" />
-                Overview
+                {t('adminDashboard.overview')}
               </TabsTrigger>
               <TabsTrigger value="users" className="flex items-center gap-2">
                 <Users className="h-4 w-4" />
-                Users
+                {t('adminDashboard.users')}
               </TabsTrigger>
               <TabsTrigger value="contact" className="flex items-center gap-2">
                 <MessageSquare className="h-4 w-4" />
-                Contact Forms
+                {t('adminDashboard.contactForms')}
               </TabsTrigger>
             </TabsList>
 
@@ -410,8 +412,8 @@ const AdminDashboard = () => {
                 <div className="lg:col-span-2 space-y-6">
                   <Card className="bg-white/80 backdrop-blur-sm">
                     <CardHeader>
-                      <CardTitle>Quick Actions</CardTitle>
-                      <CardDescription>Common administrative tasks</CardDescription>
+                      <CardTitle>{t('adminDashboard.quickActions')}</CardTitle>
+                      <CardDescription>{t('adminDashboard.commonTasks')}</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -421,7 +423,7 @@ const AdminDashboard = () => {
                           onClick={() => setActiveTab('users')}
                         >
                           <Users className="h-4 w-4" />
-                          Manage Users
+                          {t('adminDashboard.manageUsers')}
                         </Button>
                         <Button
                           variant="outline"
@@ -429,7 +431,7 @@ const AdminDashboard = () => {
                           onClick={() => setActiveTab('contact')}
                         >
                           <MessageSquare className="h-4 w-4" />
-                          View Contact Forms
+                          {t('adminDashboard.viewContactForms')}
                         </Button>
                         <Button
                           variant="outline"
@@ -437,7 +439,7 @@ const AdminDashboard = () => {
                           onClick={() => setIsSettingsOpen(true)}
                         >
                           <Settings className="h-4 w-4" />
-                          System Settings
+                          {t('adminDashboard.systemSettings')}
                         </Button>
                       </div>
                     </CardContent>
@@ -449,21 +451,21 @@ const AdminDashboard = () => {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <Bell className="h-5 w-5 text-orange-600" />
-                        Recent Actions
+                        {t('adminDashboard.recentActions')}
                       </CardTitle>
-                      <CardDescription>Latest system activities and user actions</CardDescription>
+                      <CardDescription>{t('adminDashboard.latestActions')}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-3">
                       {recentActions.length === 0 ? (
                         <div className="text-center py-4">
-                          <p className="text-gray-500 text-sm">No recent actions available.</p>
+                          <p className="text-muted-foreground text-sm">{t('adminDashboard.noRecentActions')}</p>
                           <Button 
                             variant="outline" 
                             size="sm" 
                             className="mt-2"
                             onClick={fetchRecentActions}
                           >
-                            Refresh
+                            {t('common.refresh')}
                           </Button>
                         </div>
                       ) : (
@@ -498,26 +500,26 @@ const AdminDashboard = () => {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <BarChart3 className="h-5 w-5 text-purple-600" />
-                        System Overview
+                        {t('adminDashboard.systemOverview')}
                       </CardTitle>
-                      <CardDescription>Real-time system health and metrics</CardDescription>
+                      <CardDescription>{t('adminDashboard.systemHealth')}</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-3">
                         <div className="flex justify-between text-sm">
-                          <span>Server Uptime</span>
+                          <span>{t('adminDashboard.serverUptime')}</span>
                           <span className="font-medium text-green-600">{systemOverview.serverUptime}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span>Database Size</span>
+                          <span>{t('adminDashboard.databaseSize')}</span>
                           <span className="font-medium">{systemOverview.databaseSize}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span>Active Sessions (1hr)</span>
+                          <span>{t('adminDashboard.activeSessions')}</span>
                           <span className="font-medium text-blue-600">{systemOverview.activeSessions}</span>
                         </div>
                         <div className="flex justify-between text-sm cursor-pointer" onClick={() => setActiveTab('contact')}>
-                          <span>Support Tickets</span>
+                          <span>{t('adminDashboard.supportTickets')}</span>
                           <span className="font-medium text-orange-600 hover:underline">{systemOverview.supportTickets}</span>
                         </div>
                       </div>
@@ -528,7 +530,7 @@ const AdminDashboard = () => {
                           className="w-full"
                           onClick={fetchSystemOverview}
                         >
-                          Refresh Metrics
+                          {t('adminDashboard.refreshMetrics')}
                         </Button>
                       </div>
                     </CardContent>
