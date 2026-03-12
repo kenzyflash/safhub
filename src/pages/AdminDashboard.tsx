@@ -423,7 +423,7 @@ const AdminDashboard = () => {
                           onClick={() => setActiveTab('users')}
                         >
                           <Users className="h-4 w-4" />
-                          Manage Users
+                          {t('adminDashboard.manageUsers')}
                         </Button>
                         <Button
                           variant="outline"
