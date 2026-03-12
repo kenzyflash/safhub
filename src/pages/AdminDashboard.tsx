@@ -125,28 +125,28 @@ const AdminDashboard = () => {
 
       setSystemStats([
         { 
-          label: "Total Users", 
+          label: t('adminDashboard.totalUsers'), 
           value: (totalUsers || 0).toString(), 
           icon: Users, 
           color: "text-blue-600", 
           change: "+12%" 
         },
         { 
-          label: "Active Courses", 
+          label: t('adminDashboard.activeCourses'), 
           value: (totalCourses || 0).toString(), 
           icon: BookOpen, 
           color: "text-green-600", 
           change: "+8%" 
         },
         { 
-          label: "Teachers", 
+          label: t('adminDashboard.teachers'), 
           value: (teachersCount || 0).toString(), 
           icon: GraduationCap, 
           color: "text-purple-600", 
           change: "+5%" 
         },
         { 
-          label: "Monthly Revenue", 
+          label: t('adminDashboard.monthlyRevenue'), 
           value: `$${estimatedRevenue}`, 
           icon: TrendingUp, 
           color: "text-orange-600", 
