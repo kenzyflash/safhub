@@ -439,7 +439,7 @@ const AdminDashboard = () => {
                           onClick={() => setIsSettingsOpen(true)}
                         >
                           <Settings className="h-4 w-4" />
-                          System Settings
+                          {t('adminDashboard.systemSettings')}
                         </Button>
                       </div>
                     </CardContent>
