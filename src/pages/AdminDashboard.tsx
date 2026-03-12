@@ -458,14 +458,14 @@ const AdminDashboard = () => {
                     <CardContent className="space-y-3">
                       {recentActions.length === 0 ? (
                         <div className="text-center py-4">
-                          <p className="text-gray-500 text-sm">No recent actions available.</p>
+                          <p className="text-muted-foreground text-sm">{t('adminDashboard.noRecentActions')}</p>
                           <Button 
                             variant="outline" 
                             size="sm" 
                             className="mt-2"
                             onClick={fetchRecentActions}
                           >
-                            Refresh
+                            {t('common.refresh')}
                           </Button>
                         </div>
                       ) : (
