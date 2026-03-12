@@ -451,9 +451,9 @@ const AdminDashboard = () => {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <Bell className="h-5 w-5 text-orange-600" />
-                        Recent Actions
+                        {t('adminDashboard.recentActions')}
                       </CardTitle>
-                      <CardDescription>Latest system activities and user actions</CardDescription>
+                      <CardDescription>{t('adminDashboard.latestActions')}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-3">
                       {recentActions.length === 0 ? (
