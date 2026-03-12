@@ -389,15 +389,15 @@ const AdminDashboard = () => {
             <TabsList className="grid w-full grid-cols-3 mb-6">
               <TabsTrigger value="overview" className="flex items-center gap-2">
                 <BarChart3 className="h-4 w-4" />
-                Overview
+                {t('adminDashboard.overview')}
               </TabsTrigger>
               <TabsTrigger value="users" className="flex items-center gap-2">
                 <Users className="h-4 w-4" />
-                Users
+                {t('adminDashboard.users')}
               </TabsTrigger>
               <TabsTrigger value="contact" className="flex items-center gap-2">
                 <MessageSquare className="h-4 w-4" />
-                Contact Forms
+                {t('adminDashboard.contactForms')}
               </TabsTrigger>
             </TabsList>
 
