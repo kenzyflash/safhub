@@ -1048,6 +1048,19 @@ export type Database = {
         Args: { access_type: string; profile_user_id: string }
         Returns: undefined
       }
+      send_course_release_notifications: {
+        Args: { course_name: string }
+        Returns: undefined
+      }
+      send_notification: {
+        Args: {
+          notification_message: string
+          notification_title: string
+          notification_type?: string
+          target_user_id: string
+        }
+        Returns: undefined
+      }
       update_contact_inquiry_status: {
         Args: { inquiry_id: string; new_status: string }
         Returns: Json
