@@ -12,7 +12,8 @@ import {
   UserCheck,
   GraduationCap,
   TrendingUp,
-  MessageSquare
+  MessageSquare,
+  Trophy
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -22,6 +23,7 @@ import DashboardStats from "@/components/dashboard/DashboardStats";
 import UserManagement from "@/components/dashboard/UserManagement";
 import ContactManagement from "@/components/dashboard/ContactManagement";
 import AdminSettings from "@/components/dashboard/AdminSettings";
+import AchievementManagement from "@/components/dashboard/AchievementManagement";
 import SecurityPrivacyMessage from "@/components/security/SecurityPrivacyMessage";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
