@@ -396,6 +396,19 @@
     "community": "ማህበረሰብ",
     "loadingAchievements": "ስኬቶች በመጫን ላይ..."
   },
+  "studyGoals": {
+    "weeklyGoals": "ሳምንታዊ ግቦች",
+    "setTargets": "ለዚህ ሳምንት የትምህርት ግቦችዎን ያዘጋጁ",
+    "progressThisWeek": "የዚህ ሳምንት እድገትዎ",
+    "studyHours": "የጥናት ሰዓቶች",
+    "lessonsCompleted": "የተጠናቀቁ ትምህርቶች",
+    "assignments": "ተግባሮች",
+    "setGoals": "ሳምንታዊ ግቦችን ያዘጋጁ",
+    "goalsSet": "ግቦች ተቀምጠዋል!",
+    "goalsSetDesc": "ሳምንታዊ ግቦችዎ ተቀምጠዋል።",
+    "goalsUpdated": "ግቦች ተዘምነዋል!",
+    "goalsUpdatedDesc": "ሳምንታዊ ግቦችዎ ተዘምነዋል።"
+  },
   "certificate": {
     "certificateOfCompletion": "የማጠናቀቂያ ሰርተፊኬት",
     "certifiesThat": "ይህ የሚያረጋግጠው",

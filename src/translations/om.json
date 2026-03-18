@@ -396,6 +396,19 @@
     "community": "Hawaasa",
     "loadingAchievements": "Galmoota fe'amaa jira..."
   },
+  "studyGoals": {
+    "weeklyGoals": "Kaayyoo Torbanaa",
+    "setTargets": "Kaayyoo barnoota torban kanaaf qopheessi",
+    "progressThisWeek": "Adeemsa kee torban kana",
+    "studyHours": "Sa'aatii Qo'annoo",
+    "lessonsCompleted": "Barnootawwan Xumuramaniiru",
+    "assignments": "Dalagaawwan",
+    "setGoals": "Kaayyoo Torbanaa Qopheessi",
+    "goalsSet": "Kaayyoon qophaa'eera!",
+    "goalsSetDesc": "Kaayyoon torbanaa kee kuufameera.",
+    "goalsUpdated": "Kaayyoon haaromfameera!",
+    "goalsUpdatedDesc": "Kaayyoon torbanaa kee haaromfameera."
+  },
   "certificate": {
     "certificateOfCompletion": "WARAQAA RAGAA XUMUURA",
     "certifiesThat": "Kun kan mirkaneessu",
