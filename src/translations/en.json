@@ -396,7 +396,35 @@
     "community": "Community",
     "loadingAchievements": "Loading achievements..."
   },
+  "studyGoals": {
+    "weeklyGoals": "Weekly Goals",
+    "setTargets": "Set your learning targets for this week",
+    "progressThisWeek": "Your progress this week",
+    "studyHours": "Study Hours",
+    "lessonsCompleted": "Lessons Completed",
+    "assignments": "Assignments",
+    "setGoals": "Set Weekly Goals",
+    "goalsSet": "Goals set!",
+    "goalsSetDesc": "Your weekly goals have been saved.",
+    "goalsUpdated": "Goals updated!",
+    "goalsUpdatedDesc": "Your weekly goals have been updated."
+  },
   "certificate": {
+    "certificateOfCompletion": "CERTIFICATE OF COMPLETION",
+    "certifiesThat": "This is to certify that",
+    "hasCompleted": "has successfully completed the course",
+    "completedOn": "Completed on",
+    "instructor": "Instructor",
+    "tagline": "EdHub - Empowering Ethiopian Education"
+  },
+  "languages": {
+    "english": "English",
+    "amharic": "አማርኛ",
+    "oromoo": "Afaan Oromoo",
+    "tigrinya": "ትግርኛ",
+    "selectLanguage": "Select Language"
+  }
+}
     "certificateOfCompletion": "CERTIFICATE OF COMPLETION",
     "certifiesThat": "This is to certify that",
     "hasCompleted": "has successfully completed the course",
