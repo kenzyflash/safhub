@@ -38,12 +38,6 @@ const Header = () => {
             <Link to="/courses" className="text-gray-600 hover:text-emerald-600 transition-colors">
               {t('common.courses')}
             </Link>
-            <Link to="/forum" className="text-gray-600 hover:text-emerald-600 transition-colors">
-              {t('common.forum')}
-            </Link>
-            <Link to="/achievements" className="text-gray-600 hover:text-emerald-600 transition-colors">
-              {t('common.achievements')}
-            </Link>
             <Link to="/about" className="text-gray-600 hover:text-emerald-600 transition-colors">
               {t('common.about')}
             </Link>
@@ -92,12 +86,6 @@ const Header = () => {
               </Link>
               <Link to="/courses" className="text-gray-600 hover:text-emerald-600 transition-colors py-2">
                 {t('common.courses')}
-              </Link>
-              <Link to="/forum" className="text-gray-600 hover:text-emerald-600 transition-colors py-2">
-                {t('common.forum')}
-              </Link>
-              <Link to="/achievements" className="text-gray-600 hover:text-emerald-600 transition-colors py-2">
-                {t('common.achievements')}
               </Link>
               <Link to="/about" className="text-gray-600 hover:text-emerald-600 transition-colors py-2">
                 {t('common.about')}
