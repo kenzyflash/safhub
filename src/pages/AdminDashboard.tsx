@@ -12,7 +12,8 @@ import {
   UserCheck,
   GraduationCap,
   TrendingUp,
-  MessageSquare
+  MessageSquare,
+  Trophy
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -22,6 +23,7 @@ import DashboardStats from "@/components/dashboard/DashboardStats";
 import UserManagement from "@/components/dashboard/UserManagement";
 import ContactManagement from "@/components/dashboard/ContactManagement";
 import AdminSettings from "@/components/dashboard/AdminSettings";
+import AchievementManagement from "@/components/dashboard/AchievementManagement";
 import SecurityPrivacyMessage from "@/components/security/SecurityPrivacyMessage";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -386,7 +388,7 @@ const AdminDashboard = () => {
 
           {/* Replace the custom tab navigation with shadcn Tabs component */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-6">
+            <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="overview" className="flex items-center gap-2">
                 <BarChart3 className="h-4 w-4" />
                 {t('adminDashboard.overview')}
@@ -394,6 +396,10 @@ const AdminDashboard = () => {
               <TabsTrigger value="users" className="flex items-center gap-2">
                 <Users className="h-4 w-4" />
                 {t('adminDashboard.users')}
+              </TabsTrigger>
+              <TabsTrigger value="achievements" className="flex items-center gap-2">
+                <Trophy className="h-4 w-4" />
+                {t('common.achievements')}
               </TabsTrigger>
               <TabsTrigger value="contact" className="flex items-center gap-2">
                 <MessageSquare className="h-4 w-4" />
@@ -541,6 +547,10 @@ const AdminDashboard = () => {
 
             <TabsContent value="users">
               <UserManagement />
+            </TabsContent>
+
+            <TabsContent value="achievements">
+              <AchievementManagement />
             </TabsContent>
 
             <TabsContent value="contact">

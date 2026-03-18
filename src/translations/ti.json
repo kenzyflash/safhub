@@ -396,6 +396,19 @@
     "community": "ማሕበረሰብ",
     "loadingAchievements": "ውጽኢታት ይጽዕን ኣሎ..."
   },
+  "studyGoals": {
+    "weeklyGoals": "ሰብዓዊ ዕላማታት",
+    "setTargets": "ንዚ ሰሙን ናይ ትምህርቲ ዕላማኹም ኣዳልዉ",
+    "progressThisWeek": "ናይዚ ሰሙን ምዕባለኹም",
+    "studyHours": "ሰዓታት ጥናት",
+    "lessonsCompleted": "ዝተወድኡ ትምህርትታት",
+    "assignments": "ስራሕ",
+    "setGoals": "ሰብዓዊ ዕላማታት ኣዳልው",
+    "goalsSet": "ዕላማታት ተቐሚጦም!",
+    "goalsSetDesc": "ሰብዓዊ ዕላማታትኩም ተቐሚጦም።",
+    "goalsUpdated": "ዕላማታት ተሓዲሶም!",
+    "goalsUpdatedDesc": "ሰብዓዊ ዕላማታትኩም ተሓዲሶም።"
+  },
   "certificate": {
     "certificateOfCompletion": "ናይ ምውዳእ ሰርቲፊኬት",
     "certifiesThat": "እዚ ዘረጋግጽ",
