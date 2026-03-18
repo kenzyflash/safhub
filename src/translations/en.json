@@ -407,6 +407,8 @@
   "languages": {
     "english": "English",
     "amharic": "አማርኛ",
+    "oromoo": "Afaan Oromoo",
+    "tigrinya": "ትግርኛ",
     "selectLanguage": "Select Language"
   }
 }
