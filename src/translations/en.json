@@ -425,18 +425,3 @@
     "selectLanguage": "Select Language"
   }
 }
-    "certificateOfCompletion": "CERTIFICATE OF COMPLETION",
-    "certifiesThat": "This is to certify that",
-    "hasCompleted": "has successfully completed the course",
-    "completedOn": "Completed on",
-    "instructor": "Instructor",
-    "tagline": "EdHub - Empowering Ethiopian Education"
-  },
-  "languages": {
-    "english": "English",
-    "amharic": "አማርኛ",
-    "oromoo": "Afaan Oromoo",
-    "tigrinya": "ትግርኛ",
-    "selectLanguage": "Select Language"
-  }
-}
