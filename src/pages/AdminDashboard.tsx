@@ -549,6 +549,10 @@ const AdminDashboard = () => {
               <UserManagement />
             </TabsContent>
 
+            <TabsContent value="achievements">
+              <AchievementManagement />
+            </TabsContent>
+
             <TabsContent value="contact">
               <ContactManagement />
             </TabsContent>
