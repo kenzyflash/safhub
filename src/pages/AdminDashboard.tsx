@@ -388,7 +388,7 @@ const AdminDashboard = () => {
 
           {/* Replace the custom tab navigation with shadcn Tabs component */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-6">
+            <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="overview" className="flex items-center gap-2">
                 <BarChart3 className="h-4 w-4" />
                 {t('adminDashboard.overview')}
@@ -396,6 +396,10 @@ const AdminDashboard = () => {
               <TabsTrigger value="users" className="flex items-center gap-2">
                 <Users className="h-4 w-4" />
                 {t('adminDashboard.users')}
+              </TabsTrigger>
+              <TabsTrigger value="achievements" className="flex items-center gap-2">
+                <Trophy className="h-4 w-4" />
+                {t('common.achievements')}
               </TabsTrigger>
               <TabsTrigger value="contact" className="flex items-center gap-2">
                 <MessageSquare className="h-4 w-4" />
