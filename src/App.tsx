@@ -19,6 +19,7 @@ import ForumPage from "@/pages/ForumPage";
 import ForumDetailPage from "@/pages/ForumDetailPage";
 import ForumPostDetailPage from "@/pages/ForumPostDetailPage";
 import ParentDashboard from "@/pages/ParentDashboard";
+import AITutor from "@/components/ai/AITutor";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 1 } },
@@ -45,12 +46,13 @@ function App() {
                   <Route path="/admin-dashboard" element={<AdminDashboard />} />
                   <Route path="/parent-dashboard" element={<ParentDashboard />} />
                   <Route path="/achievements" element={<GamificationPage />} />
-          <Route path="/forum" element={<ForumPage />} />
-          <Route path="/forum/:id" element={<ForumDetailPage />} />
-          <Route path="/forum/:forumId/post/:postId" element={<ForumPostDetailPage />} />
+                  <Route path="/forum" element={<ForumPage />} />
+                  <Route path="/forum/:id" element={<ForumDetailPage />} />
+                  <Route path="/forum/:forumId/post/:postId" element={<ForumPostDetailPage />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
+                <AITutor />
               </div>
             </BrowserRouter>
           </AuthProvider>
