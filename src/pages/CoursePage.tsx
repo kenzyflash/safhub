@@ -374,9 +374,9 @@ const CoursePage = () => {
   // Show course loading state
   if (courseLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <BookOpen className="h-16 w-16 text-emerald-600 mx-auto mb-4 animate-spin" />
+          <BookOpen className="h-16 w-16 text-primary mx-auto mb-4 animate-spin" />
           <p className="text-gray-600">{t('coursePage.loadingCourse')}</p>
           <p className="text-sm text-gray-500 mt-2">{t('coursePage.loadingMoment')}</p>
         </div>
