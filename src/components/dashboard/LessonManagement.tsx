@@ -297,7 +297,7 @@ const LessonManagement = ({ courseId, courseName }: LessonManagementProps) => {
       </CardHeader>
       <CardContent className="space-y-4">
         {lessons.map((lesson, index) => (
-          <div key={lesson.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+          <div key={lesson.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow space-y-3">
             <div className="flex items-start justify-between mb-3">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
@@ -315,6 +315,11 @@ const LessonManagement = ({ courseId, courseName }: LessonManagementProps) => {
                   )}
                 </div>
               </div>
+            </div>
+
+            {/* Lesson Materials */}
+            <div className="border-t pt-3">
+              <LessonMaterialUploader lessonId={lesson.id} courseId={courseId} />
             </div>
             
             <div className="flex items-center justify-between">
