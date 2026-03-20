@@ -447,29 +447,41 @@ const CoursePage = () => {
               </div>
 
               {getCourseProgress() === 100 && (
-                <Button
-                  onClick={() => {
-                    const userName = user.user_metadata?.first_name && user.user_metadata?.last_name
-                      ? `${user.user_metadata.first_name} ${user.user_metadata.last_name}`
-                      : user.email || 'Student';
-                    generateCertificate({
-                      studentName: userName,
-                      courseTitle: course.title,
-                      completionDate: new Date().toLocaleDateString('en-US', {
-                        year: 'numeric', month: 'long', day: 'numeric'
-                      }),
-                      instructorName: course.instructor_name,
-                    });
-                    toast({
-                      title: "Certificate Downloaded!",
-                      description: "Your certificate of completion has been saved.",
-                    });
-                  }}
-                  className="bg-emerald-600 hover:bg-emerald-700"
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  {t('coursePage.downloadCertificate')}
-                </Button>
+                <div className="flex items-center gap-3">
+                  <select
+                    id="cert-style"
+                    className="border rounded-md px-3 py-2 text-sm bg-white"
+                    defaultValue="classic"
+                  >
+                    <option value="classic">Classic</option>
+                    <option value="modern">Modern</option>
+                    <option value="elegant">Elegant</option>
+                  </select>
+                  <Button
+                    onClick={() => {
+                      const style = (document.getElementById('cert-style') as HTMLSelectElement)?.value as any || 'classic';
+                      const userName = user.user_metadata?.first_name && user.user_metadata?.last_name
+                        ? `${user.user_metadata.first_name} ${user.user_metadata.last_name}`
+                        : user.email || 'Student';
+                      generateCertificate({
+                        studentName: userName,
+                        courseTitle: course.title,
+                        completionDate: new Date().toLocaleDateString('en-US', {
+                          year: 'numeric', month: 'long', day: 'numeric'
+                        }),
+                        instructorName: course.instructor_name,
+                        style,
+                      });
+                      toast({
+                        title: "Certificate Downloaded!",
+                        description: "Your certificate of completion has been saved.",
+                      });
+                    }}
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    {t('coursePage.downloadCertificate')}
+                  </Button>
+                </div>
               )}
             </div>
           </div>
