@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import VideoUploader from '@/components/enhanced/VideoUploader';
+import LessonMaterialUploader from '@/components/dashboard/LessonMaterialUploader';
 
 interface Lesson {
   id: string;
