@@ -536,7 +536,6 @@ const CoursePage = () => {
                           ) : (
                             <Button 
                               onClick={() => markLessonComplete(currentLesson.id)}
-                              className="bg-emerald-600 hover:bg-emerald-700"
                             >
                               <CheckCircle className="mr-2 h-4 w-4" />
                               {t('coursePage.markAsComplete')}
