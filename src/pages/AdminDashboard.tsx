@@ -345,7 +345,7 @@ const AdminDashboard = () => {
   if (loading) {
     return (
       <ProtectedRoute requiredRole="admin">
-        <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
+        <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
           <DashboardHeader title="EdHub - Admin" />
           <div className="container mx-auto px-4 py-8">
             <div className="flex items-center justify-center py-12">
@@ -360,9 +360,9 @@ const AdminDashboard = () => {
 
   return (
     <ProtectedRoute requiredRole="admin">
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
         <DashboardHeader 
-          title="EdHub - Admin" 
+          title="EdHub - Admin"
           showSettings 
           onSettingsClick={() => setIsSettingsOpen(true)}
         />

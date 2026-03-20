@@ -339,9 +339,9 @@ const CoursePage = () => {
   // Show loading state with timeout
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <BookOpen className="h-16 w-16 text-emerald-600 mx-auto mb-4 animate-spin" />
+          <BookOpen className="h-16 w-16 text-primary mx-auto mb-4 animate-spin" />
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
@@ -351,13 +351,13 @@ const CoursePage = () => {
   // Show error state with retry option
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
           <h2 className="text-xl font-semibold text-gray-800 mb-2">{t('coursePage.unableToLoad')}</h2>
           <p className="text-gray-600 mb-4">{error}</p>
           <div className="space-x-2">
-            <Button onClick={handleRetry} className="bg-emerald-600 hover:bg-emerald-700">
+            <Button onClick={handleRetry}>
               <RefreshCw className="h-4 w-4 mr-2" />
               {t('coursePage.tryAgain')}
             </Button>
@@ -374,9 +374,9 @@ const CoursePage = () => {
   // Show course loading state
   if (courseLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <BookOpen className="h-16 w-16 text-emerald-600 mx-auto mb-4 animate-spin" />
+          <BookOpen className="h-16 w-16 text-primary mx-auto mb-4 animate-spin" />
           <p className="text-gray-600">{t('coursePage.loadingCourse')}</p>
           <p className="text-sm text-gray-500 mt-2">{t('coursePage.loadingMoment')}</p>
         </div>
@@ -391,7 +391,7 @@ const CoursePage = () => {
   const currentLesson = lessons[selectedLesson];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -401,7 +401,7 @@ const CoursePage = () => {
               {t('coursePage.backToDashboard')}
             </Button>
             <div className="flex items-center space-x-2">
-              <BookOpen className="h-8 w-8 text-emerald-600" />
+              <BookOpen className="h-8 w-8 text-primary" />
               <h1 className="text-2xl font-bold text-gray-800">EdHub</h1>
             </div>
           </div>
@@ -447,29 +447,41 @@ const CoursePage = () => {
               </div>
 
               {getCourseProgress() === 100 && (
-                <Button
-                  onClick={() => {
-                    const userName = user.user_metadata?.first_name && user.user_metadata?.last_name
-                      ? `${user.user_metadata.first_name} ${user.user_metadata.last_name}`
-                      : user.email || 'Student';
-                    generateCertificate({
-                      studentName: userName,
-                      courseTitle: course.title,
-                      completionDate: new Date().toLocaleDateString('en-US', {
-                        year: 'numeric', month: 'long', day: 'numeric'
-                      }),
-                      instructorName: course.instructor_name,
-                    });
-                    toast({
-                      title: "Certificate Downloaded!",
-                      description: "Your certificate of completion has been saved.",
-                    });
-                  }}
-                  className="bg-emerald-600 hover:bg-emerald-700"
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  {t('coursePage.downloadCertificate')}
-                </Button>
+                <div className="flex items-center gap-3">
+                  <select
+                    id="cert-style"
+                    className="border rounded-md px-3 py-2 text-sm bg-white"
+                    defaultValue="classic"
+                  >
+                    <option value="classic">Classic</option>
+                    <option value="modern">Modern</option>
+                    <option value="elegant">Elegant</option>
+                  </select>
+                  <Button
+                    onClick={() => {
+                      const style = (document.getElementById('cert-style') as HTMLSelectElement)?.value as any || 'classic';
+                      const userName = user.user_metadata?.first_name && user.user_metadata?.last_name
+                        ? `${user.user_metadata.first_name} ${user.user_metadata.last_name}`
+                        : user.email || 'Student';
+                      generateCertificate({
+                        studentName: userName,
+                        courseTitle: course.title,
+                        completionDate: new Date().toLocaleDateString('en-US', {
+                          year: 'numeric', month: 'long', day: 'numeric'
+                        }),
+                        instructorName: course.instructor_name,
+                        style,
+                      });
+                      toast({
+                        title: "Certificate Downloaded!",
+                        description: "Your certificate of completion has been saved.",
+                      });
+                    }}
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    {t('coursePage.downloadCertificate')}
+                  </Button>
+                </div>
               )}
             </div>
           </div>
@@ -524,7 +536,6 @@ const CoursePage = () => {
                           ) : (
                             <Button 
                               onClick={() => markLessonComplete(currentLesson.id)}
-                              className="bg-emerald-600 hover:bg-emerald-700"
                             >
                               <CheckCircle className="mr-2 h-4 w-4" />
                               {t('coursePage.markAsComplete')}
@@ -582,8 +593,8 @@ const CoursePage = () => {
                       key={lesson.id}
                       className={`p-3 rounded-lg border cursor-pointer transition-colors ${
                         selectedLesson === index
-                          ? 'bg-emerald-50 border-emerald-200'
-                          : 'hover:bg-gray-50'
+                        ? 'bg-primary/10 border-primary/30'
+                        : 'hover:bg-gray-50'
                       }`}
                       onClick={() => setSelectedLesson(index)}
                     >
@@ -596,7 +607,7 @@ const CoursePage = () => {
                         </div>
                         <div className="flex items-center gap-2">
                           {isLessonCompleted(lesson.id) && (
-                            <CheckCircle className="h-4 w-4 text-emerald-600" />
+                            <CheckCircle className="h-4 w-4 text-primary" />
                           )}
                           <Badge variant={selectedLesson === index ? "default" : "secondary"} className="text-xs">
                             {index + 1}

@@ -48,11 +48,11 @@ const ParentDashboard = () => {
   const averageProgress = children.length > 0 ? children.reduce((total, child) => total + (child.totalCourses > 0 ? (child.completedCourses / child.totalCourses) * 100 : 0), 0) / children.length : 0;
 
   if (loading) {
-    return (<div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50"><DashboardHeader title="EdHub - Parent Dashboard" /><div className="container mx-auto px-4 py-8"><div className="text-center">{t('dashboard.loadingDashboard')}</div></div></div>);
+    return (<div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50"><DashboardHeader title="EdHub - Parent Dashboard" /><div className="container mx-auto px-4 py-8"><div className="text-center">{t('dashboard.loadingDashboard')}</div></div></div>);
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
       <DashboardHeader title="EdHub - Parent Dashboard" />
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
@@ -98,7 +98,7 @@ const ParentDashboard = () => {
                     </div>
                     <div className="pt-2">
                       <div className="flex items-center justify-between text-sm"><span>{t('parentDashboard.courseProgressLabel')}</span><span>{child.totalCourses > 0 ? Math.round((child.completedCourses / child.totalCourses) * 100) : 0}%</span></div>
-                      <div className="w-full bg-gray-200 rounded-full h-2 mt-1"><div className="bg-emerald-600 h-2 rounded-full" style={{ width: `${child.totalCourses > 0 ? (child.completedCourses / child.totalCourses) * 100 : 0}%` }}></div></div>
+                      <div className="w-full bg-gray-200 rounded-full h-2 mt-1"><div className="bg-primary h-2 rounded-full" style={{ width: `${child.totalCourses > 0 ? (child.completedCourses / child.totalCourses) * 100 : 0}%` }}></div></div>
                     </div>
                   </CardContent>
                 </Card>

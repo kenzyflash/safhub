@@ -78,12 +78,12 @@ const TeacherDashboard = () => {
   const getActivityColor = (type: string) => { switch (type) { case 'discussion': return 'border-blue-200 bg-blue-50'; case 'enrollment': return 'border-green-200 bg-green-50'; case 'submission': return 'border-purple-200 bg-purple-50'; default: return 'border-gray-200 bg-gray-50'; } };
 
   if (coursesLoading && !hasInitiallyLoaded) {
-    return (<ProtectedRoute requiredRole="teacher"><div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50"><DashboardHeader title="EdHub - Teacher" /><div className="container mx-auto px-4 py-8"><div className="text-center">{t('dashboard.loadingDashboard')}</div></div></div></ProtectedRoute>);
+    return (<ProtectedRoute requiredRole="teacher"><div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50"><DashboardHeader title="EdHub - Teacher" /><div className="container mx-auto px-4 py-8"><div className="text-center">{t('dashboard.loadingDashboard')}</div></div></div></ProtectedRoute>);
   }
 
   return (
     <ProtectedRoute requiredRole="teacher">
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
         <DashboardHeader title="EdHub - Teacher" />
         <div className="container mx-auto px-4 py-8">
           <div className="mb-8">

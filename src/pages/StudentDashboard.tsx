@@ -93,7 +93,7 @@ const StudentDashboard = () => {
   if (loading || coursesLoading) {
     return (
       <ProtectedRoute requiredRole="student">
-        <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
           <DashboardHeader title="EdHub - Student" />
           <div className="container mx-auto px-4 py-8">
             <div className="text-center">{t('dashboard.loadingDashboard')}</div>
@@ -105,7 +105,7 @@ const StudentDashboard = () => {
 
   return (
     <ProtectedRoute requiredRole="student">
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
         <DashboardHeader title="EdHub - Student" />
 
         <div className="container mx-auto px-4 py-8">
