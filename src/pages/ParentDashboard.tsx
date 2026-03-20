@@ -98,7 +98,7 @@ const ParentDashboard = () => {
                     </div>
                     <div className="pt-2">
                       <div className="flex items-center justify-between text-sm"><span>{t('parentDashboard.courseProgressLabel')}</span><span>{child.totalCourses > 0 ? Math.round((child.completedCourses / child.totalCourses) * 100) : 0}%</span></div>
-                      <div className="w-full bg-gray-200 rounded-full h-2 mt-1"><div className="bg-emerald-600 h-2 rounded-full" style={{ width: `${child.totalCourses > 0 ? (child.completedCourses / child.totalCourses) * 100 : 0}%` }}></div></div>
+                      <div className="w-full bg-gray-200 rounded-full h-2 mt-1"><div className="bg-primary h-2 rounded-full" style={{ width: `${child.totalCourses > 0 ? (child.completedCourses / child.totalCourses) * 100 : 0}%` }}></div></div>
                     </div>
                   </CardContent>
                 </Card>
