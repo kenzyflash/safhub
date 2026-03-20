@@ -48,7 +48,7 @@ const ParentDashboard = () => {
   const averageProgress = children.length > 0 ? children.reduce((total, child) => total + (child.totalCourses > 0 ? (child.completedCourses / child.totalCourses) * 100 : 0), 0) / children.length : 0;
 
   if (loading) {
-    return (<div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50"><DashboardHeader title="EdHub - Parent Dashboard" /><div className="container mx-auto px-4 py-8"><div className="text-center">{t('dashboard.loadingDashboard')}</div></div></div>);
+    return (<div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50"><DashboardHeader title="EdHub - Parent Dashboard" /><div className="container mx-auto px-4 py-8"><div className="text-center">{t('dashboard.loadingDashboard')}</div></div></div>);
   }
 
   return (
