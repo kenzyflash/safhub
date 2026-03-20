@@ -401,7 +401,7 @@ const CoursePage = () => {
               {t('coursePage.backToDashboard')}
             </Button>
             <div className="flex items-center space-x-2">
-              <BookOpen className="h-8 w-8 text-emerald-600" />
+              <BookOpen className="h-8 w-8 text-primary" />
               <h1 className="text-2xl font-bold text-gray-800">EdHub</h1>
             </div>
           </div>
