@@ -593,8 +593,8 @@ const CoursePage = () => {
                       key={lesson.id}
                       className={`p-3 rounded-lg border cursor-pointer transition-colors ${
                         selectedLesson === index
-                          ? 'bg-emerald-50 border-emerald-200'
-                          : 'hover:bg-gray-50'
+                        ? 'bg-primary/10 border-primary/30'
+                        : 'hover:bg-gray-50'
                       }`}
                       onClick={() => setSelectedLesson(index)}
                     >
