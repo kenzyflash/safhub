@@ -351,13 +351,13 @@ const CoursePage = () => {
   // Show error state with retry option
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
           <h2 className="text-xl font-semibold text-gray-800 mb-2">{t('coursePage.unableToLoad')}</h2>
           <p className="text-gray-600 mb-4">{error}</p>
           <div className="space-x-2">
-            <Button onClick={handleRetry} className="bg-emerald-600 hover:bg-emerald-700">
+            <Button onClick={handleRetry}>
               <RefreshCw className="h-4 w-4 mr-2" />
               {t('coursePage.tryAgain')}
             </Button>
