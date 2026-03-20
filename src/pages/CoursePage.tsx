@@ -607,7 +607,7 @@ const CoursePage = () => {
                         </div>
                         <div className="flex items-center gap-2">
                           {isLessonCompleted(lesson.id) && (
-                            <CheckCircle className="h-4 w-4 text-emerald-600" />
+                            <CheckCircle className="h-4 w-4 text-primary" />
                           )}
                           <Badge variant={selectedLesson === index ? "default" : "secondary"} className="text-xs">
                             {index + 1}
