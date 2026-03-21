@@ -274,13 +274,11 @@ const LessonManagement = ({ courseId, courseName }: LessonManagementProps) => {
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium">Video Upload</label>
-                  <VideoUploader
-                    onUploadComplete={(url) => setNewLesson({ ...newLesson, video_url: url })}
+                  <label className="text-sm font-medium">Video URL</label>
+                  <VideoUrlInput
+                    value={newLesson.video_url}
+                    onChange={(url) => setNewLesson({ ...newLesson, video_url: url })}
                   />
-                  {newLesson.video_url && (
-                    <p className="text-sm text-green-600 mt-1">Video uploaded successfully</p>
-                  )}
                 </div>
                 <div className="flex gap-2">
                   <Button onClick={handleCreateLesson} className="bg-blue-600 hover:bg-blue-700">
