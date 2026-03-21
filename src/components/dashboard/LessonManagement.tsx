@@ -10,7 +10,7 @@ import { Plus, Edit, Trash2, Video, ArrowUp, ArrowDown, BookOpen } from 'lucide-
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import VideoUploader from '@/components/enhanced/VideoUploader';
+import VideoUrlInput from '@/components/enhanced/VideoUrlInput';
 import LessonMaterialUploader from '@/components/dashboard/LessonMaterialUploader';
 
 interface Lesson {
