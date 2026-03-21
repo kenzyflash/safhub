@@ -493,8 +493,9 @@ const CoursePage = () => {
           {/* Left Column - Video and Content */}
           <div className="lg:col-span-2">
             <Tabs defaultValue="video" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="video">{t('coursePage.videoLesson')}</TabsTrigger>
+                <TabsTrigger value="materials">Materials</TabsTrigger>
                 <TabsTrigger value="discussion">{t('coursePage.discussion')}</TabsTrigger>
                 <TabsTrigger value="assignments">{t('coursePage.assignments')}</TabsTrigger>
               </TabsList>
