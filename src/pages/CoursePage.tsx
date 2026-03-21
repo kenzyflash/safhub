@@ -28,6 +28,7 @@ import VideoPlayer from "@/components/course/VideoPlayer";
 import CourseDiscussion from "@/components/course/CourseDiscussion";
 import AssignmentSubmission from "@/components/course/AssignmentSubmission";
 import { generateCertificate } from "@/utils/generateCertificate";
+import LessonMaterials from "@/components/course/LessonMaterials";
 
 interface Course {
   id: string;
@@ -492,8 +493,9 @@ const CoursePage = () => {
           {/* Left Column - Video and Content */}
           <div className="lg:col-span-2">
             <Tabs defaultValue="video" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="video">{t('coursePage.videoLesson')}</TabsTrigger>
+                <TabsTrigger value="materials">Materials</TabsTrigger>
                 <TabsTrigger value="discussion">{t('coursePage.discussion')}</TabsTrigger>
                 <TabsTrigger value="assignments">{t('coursePage.assignments')}</TabsTrigger>
               </TabsList>
@@ -564,6 +566,14 @@ const CoursePage = () => {
                       </div>
                     </CardContent>
                   </Card>
+                )}
+              </TabsContent>
+
+              <TabsContent value="materials">
+                {currentLesson ? (
+                  <LessonMaterials lessonId={currentLesson.id} courseId={courseId!} />
+                ) : (
+                  <p className="text-muted-foreground text-center py-8">Select a lesson to view materials</p>
                 )}
               </TabsContent>
 
