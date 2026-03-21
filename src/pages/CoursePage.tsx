@@ -569,6 +569,14 @@ const CoursePage = () => {
                 )}
               </TabsContent>
 
+              <TabsContent value="materials">
+                {currentLesson ? (
+                  <LessonMaterials lessonId={currentLesson.id} courseId={courseId!} />
+                ) : (
+                  <p className="text-muted-foreground text-center py-8">Select a lesson to view materials</p>
+                )}
+              </TabsContent>
+
               <TabsContent value="discussion">
                 <CourseDiscussion courseId={courseId!} />
               </TabsContent>
