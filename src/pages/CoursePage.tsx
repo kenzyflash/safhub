@@ -28,6 +28,7 @@ import VideoPlayer from "@/components/course/VideoPlayer";
 import CourseDiscussion from "@/components/course/CourseDiscussion";
 import AssignmentSubmission from "@/components/course/AssignmentSubmission";
 import { generateCertificate } from "@/utils/generateCertificate";
+import LessonMaterials from "@/components/course/LessonMaterials";
 
 interface Course {
   id: string;
