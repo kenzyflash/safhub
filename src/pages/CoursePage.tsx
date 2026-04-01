@@ -56,7 +56,7 @@ interface LessonProgress {
   watch_time_minutes: number;
 }
 
-const LOADING_TIMEOUT = 10000; // 10 seconds
+const LOADING_TIMEOUT = 20000; // 20 seconds
 const MAX_RETRY_ATTEMPTS = 3;
 
 const CoursePage = () => {
