@@ -74,8 +74,11 @@ const CoursePage = () => {
   const [error, setError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
 
-  // Timeout for loading states
+  const [fetchStarted, setFetchStarted] = useState(false);
+
+  // Timeout for loading states - only starts when fetch actually begins
   useEffect(() => {
+    if (!fetchStarted) return;
     const timeoutId = setTimeout(() => {
       if (courseLoading) {
         console.log('Loading timeout reached');
@@ -85,7 +88,7 @@ const CoursePage = () => {
     }, LOADING_TIMEOUT);
 
     return () => clearTimeout(timeoutId);
-  }, [courseLoading]);
+  }, [fetchStarted, courseLoading]);
 
   // Authentication redirect with timeout
   useEffect(() => {
