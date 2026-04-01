@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { FileText, Upload, Trash2, Download, File } from 'lucide-react';
+import { FileText, Upload, Trash2, Download } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -48,6 +46,19 @@ const formatFileSize = (bytes: number | null) => {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+};
+
+/**
+ * Extract the storage path from a file_url value.
+ * Handles both legacy full URLs and plain storage paths.
+ */
+const getStoragePath = (fileUrl: string): string => {
+  const marker = '/lesson-materials/';
+  const idx = fileUrl.indexOf(marker);
+  if (idx !== -1) {
+    return fileUrl.substring(idx + marker.length);
+  }
+  return fileUrl;
 };
 
 const LessonMaterialUploader = ({ lessonId, courseId, readOnly = false }: LessonMaterialUploaderProps) => {
@@ -103,10 +114,7 @@ const LessonMaterialUploader = ({ lessonId, courseId, readOnly = false }: Lesson
 
       if (uploadError) throw uploadError;
 
-      const { data: urlData } = supabase.storage
-        .from('lesson-materials')
-        .getPublicUrl(filePath);
-
+      // Store the storage path, NOT a public URL (bucket is private)
       const { error: dbError } = await supabase
         .from('lesson_materials')
         .insert({
@@ -114,7 +122,7 @@ const LessonMaterialUploader = ({ lessonId, courseId, readOnly = false }: Lesson
           course_id: courseId,
           uploaded_by: user.id,
           file_name: file.name,
-          file_url: urlData.publicUrl,
+          file_url: filePath, // storage path only
           file_type: file.type,
           file_size_bytes: file.size,
         });
@@ -129,6 +137,24 @@ const LessonMaterialUploader = ({ lessonId, courseId, readOnly = false }: Lesson
     } finally {
       setUploading(false);
       e.target.value = '';
+    }
+  };
+
+  const handleDownload = async (material: LessonMaterial) => {
+    try {
+      const storagePath = getStoragePath(material.file_url);
+      const { data, error } = await supabase.storage
+        .from('lesson-materials')
+        .createSignedUrl(storagePath, 300);
+
+      if (error || !data?.signedUrl) {
+        console.error('Signed URL error:', error);
+        toast({ title: 'Download failed', description: 'Could not generate download link.', variant: 'destructive' });
+        return;
+      }
+      window.open(data.signedUrl, '_blank', 'noopener,noreferrer');
+    } catch (err) {
+      console.error('Download error:', err);
     }
   };
 
@@ -193,10 +219,8 @@ const LessonMaterialUploader = ({ lessonId, courseId, readOnly = false }: Lesson
                 </div>
               </div>
               <div className="flex items-center gap-1">
-                <Button size="sm" variant="ghost" className="h-7 w-7 p-0" asChild>
-                  <a href={material.file_url} target="_blank" rel="noopener noreferrer">
-                    <Download className="h-3 w-3" />
-                  </a>
+                <Button size="sm" variant="ghost" className="h-7 w-7 p-0" onClick={() => handleDownload(material)}>
+                  <Download className="h-3 w-3" />
                 </Button>
                 {!readOnly && (
                   <Button size="sm" variant="ghost" className="h-7 w-7 p-0 text-destructive" onClick={() => handleDelete(material)}>
