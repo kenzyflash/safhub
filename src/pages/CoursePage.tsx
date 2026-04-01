@@ -110,6 +110,7 @@ const CoursePage = () => {
   const fetchCourseDataWithRetry = async () => {
     try {
       setCourseLoading(true);
+      setFetchStarted(true);
       setError(null);
       
       await Promise.all([
