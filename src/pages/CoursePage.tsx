@@ -60,7 +60,8 @@ const LOADING_TIMEOUT = 20000; // 20 seconds
 const MAX_RETRY_ATTEMPTS = 3;
 
 const CoursePage = () => {
-  const { courseId } = useParams();
+  const { id } = useParams<{ id: string }>();
+  const courseId = id; // align with App.tsx route param ":id"
   const navigate = useNavigate();
   const { user, userRole, loading } = useAuth();
   const { t } = useLanguage();
@@ -89,6 +90,14 @@ const CoursePage = () => {
 
     return () => clearTimeout(timeoutId);
   }, [fetchStarted, courseLoading]);
+
+  // If no valid course ID, show error immediately instead of spinning forever
+  useEffect(() => {
+    if (!loading && !courseId) {
+      setError('Invalid course link. No course ID was provided.');
+      setCourseLoading(false);
+    }
+  }, [loading, courseId]);
 
   // Authentication redirect with timeout
   useEffect(() => {

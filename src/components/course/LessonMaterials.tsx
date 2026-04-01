@@ -2,8 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { FileText, Download, File } from 'lucide-react';
+import { FileText, Download } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
 interface LessonMaterial {
@@ -33,6 +32,22 @@ const formatFileSize = (bytes: number | null) => {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 };
 
+/**
+ * Extract the storage path from a file_url value.
+ * Handles both:
+ *  - Legacy full URLs: https://...supabase.co/storage/v1/object/public/lesson-materials/courseId/lessonId/file.ext
+ *  - New storage paths: courseId/lessonId/file.ext
+ */
+const getStoragePath = (fileUrl: string): string => {
+  const marker = '/lesson-materials/';
+  const idx = fileUrl.indexOf(marker);
+  if (idx !== -1) {
+    return fileUrl.substring(idx + marker.length);
+  }
+  // Already a plain storage path
+  return fileUrl;
+};
+
 const LessonMaterials = ({ lessonId, courseId }: LessonMaterialsProps) => {
   const [materials, setMaterials] = useState<LessonMaterial[]>([]);
   const [loading, setLoading] = useState(true);
@@ -58,8 +73,21 @@ const LessonMaterials = ({ lessonId, courseId }: LessonMaterialsProps) => {
     }
   };
 
-  const handleDownload = (material: LessonMaterial) => {
-    window.open(material.file_url, '_blank', 'noopener,noreferrer');
+  const handleDownload = async (material: LessonMaterial) => {
+    try {
+      const storagePath = getStoragePath(material.file_url);
+      const { data, error } = await supabase.storage
+        .from('lesson-materials')
+        .createSignedUrl(storagePath, 300); // 5-minute signed URL
+
+      if (error || !data?.signedUrl) {
+        console.error('Signed URL error:', error);
+        return;
+      }
+      window.open(data.signedUrl, '_blank', 'noopener,noreferrer');
+    } catch (err) {
+      console.error('Download error:', err);
+    }
   };
 
   if (loading || materials.length === 0) return null;
