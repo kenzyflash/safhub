@@ -56,7 +56,7 @@ interface LessonProgress {
   watch_time_minutes: number;
 }
 
-const LOADING_TIMEOUT = 10000; // 10 seconds
+const LOADING_TIMEOUT = 20000; // 20 seconds
 const MAX_RETRY_ATTEMPTS = 3;
 
 const CoursePage = () => {
@@ -74,8 +74,11 @@ const CoursePage = () => {
   const [error, setError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
 
-  // Timeout for loading states
+  const [fetchStarted, setFetchStarted] = useState(false);
+
+  // Timeout for loading states - only starts when fetch actually begins
   useEffect(() => {
+    if (!fetchStarted) return;
     const timeoutId = setTimeout(() => {
       if (courseLoading) {
         console.log('Loading timeout reached');
@@ -85,7 +88,7 @@ const CoursePage = () => {
     }, LOADING_TIMEOUT);
 
     return () => clearTimeout(timeoutId);
-  }, [courseLoading]);
+  }, [fetchStarted, courseLoading]);
 
   // Authentication redirect with timeout
   useEffect(() => {
@@ -107,6 +110,7 @@ const CoursePage = () => {
   const fetchCourseDataWithRetry = async () => {
     try {
       setCourseLoading(true);
+      setFetchStarted(true);
       setError(null);
       
       await Promise.all([
