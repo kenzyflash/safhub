@@ -18,7 +18,18 @@ import {
   X,
   AlertCircle,
   RefreshCw,
+  StopCircle,
 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ProfileDropdown from "@/components/ProfileDropdown";
@@ -74,6 +85,8 @@ const CoursePage = () => {
   const [courseLoading, setCourseLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
+  const [showUnenrollDialog, setShowUnenrollDialog] = useState(false);
+  const [unenrolling, setUnenrolling] = useState(false);
 
   const [fetchStarted, setFetchStarted] = useState(false);
 
@@ -350,6 +363,24 @@ const CoursePage = () => {
     fetchCourseDataWithRetry();
   };
 
+  const handleUnenroll = async () => {
+    if (!user || !courseId) return;
+    setUnenrolling(true);
+    try {
+      await supabase.from('lesson_progress').delete().eq('user_id', user.id).eq('course_id', courseId);
+      const { error } = await supabase.from('course_enrollments').delete().eq('user_id', user.id).eq('course_id', courseId);
+      if (error) throw error;
+      toast({ title: "Unenrolled", description: `You have been unenrolled from "${course?.title}".` });
+      navigate('/courses');
+    } catch (e) {
+      console.error('Unenroll error:', e);
+      toast({ title: "Error", description: "Failed to unenroll.", variant: "destructive" });
+    } finally {
+      setUnenrolling(false);
+      setShowUnenrollDialog(false);
+    }
+  };
+
   // Show loading state with timeout
   if (loading) {
     return (
@@ -497,9 +528,39 @@ const CoursePage = () => {
                   </Button>
                 </div>
               )}
+
+              <Button
+                variant="ghost"
+                className="text-red-600 hover:text-red-700 hover:bg-red-50 mt-2"
+                onClick={() => setShowUnenrollDialog(true)}
+              >
+                <StopCircle className="h-4 w-4 mr-1" />
+                Stop Learning
+              </Button>
             </div>
           </div>
         </div>
+
+        <AlertDialog open={showUnenrollDialog} onOpenChange={setShowUnenrollDialog}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Unenroll from course?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Are you sure you want to unenroll from "{course.title}"? Your lesson progress will be permanently deleted.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel disabled={unenrolling}>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleUnenroll}
+                disabled={unenrolling}
+                className="bg-red-600 hover:bg-red-700"
+              >
+                {unenrolling ? "Unenrolling..." : "Yes, unenroll"}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

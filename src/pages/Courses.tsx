@@ -36,6 +36,7 @@ const Courses = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [courses, setCourses] = useState<CourseData[]>([]);
+  const [enrolledCourseIds, setEnrolledCourseIds] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const { t } = useLanguage();
@@ -45,6 +46,10 @@ const Courses = () => {
   useEffect(() => {
     fetchCourses();
   }, []);
+
+  useEffect(() => {
+    if (user) fetchEnrollments();
+  }, [user]);
 
   const fetchCourses = async () => {
     try {
@@ -60,6 +65,19 @@ const Courses = () => {
       console.error('Error fetching courses:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchEnrollments = async () => {
+    if (!user) return;
+    try {
+      const { data } = await supabase
+        .from('course_enrollments')
+        .select('course_id')
+        .eq('user_id', user.id);
+      setEnrolledCourseIds(new Set((data || []).map(e => e.course_id)));
+    } catch (e) {
+      console.error('Error fetching enrollments:', e);
     }
   };
 
@@ -199,9 +217,17 @@ const Courses = () => {
                     <div className="flex items-center"><Users className="h-4 w-4 mr-1" />{(course.student_count || 0).toLocaleString()} {t('common.students')}</div>
                     {course.rating ? <div className="flex items-center"><Star className="h-4 w-4 mr-1 fill-yellow-400 text-yellow-400" />{course.rating}</div> : null}
                   </div>
-                  <Button onClick={() => handleEnrollClick(course.id)} className="w-full">
-                    <Play className="mr-2 h-4 w-4" />{t('courses.enrollNow')}
-                  </Button>
+                  {enrolledCourseIds.has(course.id) ? (
+                    <Button asChild className="w-full" variant="secondary">
+                      <Link to={`/course/${course.id}`}>
+                        <Play className="mr-2 h-4 w-4" />{t('courses.continueLearning') || 'Continue Learning'}
+                      </Link>
+                    </Button>
+                  ) : (
+                    <Button onClick={() => handleEnrollClick(course.id)} className="w-full">
+                      <Play className="mr-2 h-4 w-4" />{t('courses.enrollNow')}
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             ))}
