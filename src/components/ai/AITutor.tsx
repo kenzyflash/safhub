@@ -5,6 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Bot, Send, X, MessageSquare, Loader2 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 import ReactMarkdown from 'react-markdown';
 
 interface Message {
@@ -42,11 +43,16 @@ const AITutor = () => {
       const controller = new AbortController();
       abortRef.current = controller;
 
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        throw new Error('Please log in to use the AI Tutor.');
+      }
+
       const resp = await fetch(CHAT_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          Authorization: `Bearer ${session.access_token}`,
         },
         body: JSON.stringify({ messages: [...messages, userMsg] }),
         signal: controller.signal,
