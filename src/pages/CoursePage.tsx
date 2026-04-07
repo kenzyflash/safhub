@@ -85,6 +85,8 @@ const CoursePage = () => {
   const [courseLoading, setCourseLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
+  const [showUnenrollDialog, setShowUnenrollDialog] = useState(false);
+  const [unenrolling, setUnenrolling] = useState(false);
 
   const [fetchStarted, setFetchStarted] = useState(false);
 
@@ -359,6 +361,24 @@ const CoursePage = () => {
     setRetryCount(0);
     setError(null);
     fetchCourseDataWithRetry();
+  };
+
+  const handleUnenroll = async () => {
+    if (!user || !courseId) return;
+    setUnenrolling(true);
+    try {
+      await supabase.from('lesson_progress').delete().eq('user_id', user.id).eq('course_id', courseId);
+      const { error } = await supabase.from('course_enrollments').delete().eq('user_id', user.id).eq('course_id', courseId);
+      if (error) throw error;
+      toast({ title: "Unenrolled", description: `You have been unenrolled from "${course?.title}".` });
+      navigate('/courses');
+    } catch (e) {
+      console.error('Unenroll error:', e);
+      toast({ title: "Error", description: "Failed to unenroll.", variant: "destructive" });
+    } finally {
+      setUnenrolling(false);
+      setShowUnenrollDialog(false);
+    }
   };
 
   // Show loading state with timeout
