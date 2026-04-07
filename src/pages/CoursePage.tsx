@@ -528,9 +528,39 @@ const CoursePage = () => {
                   </Button>
                 </div>
               )}
+
+              <Button
+                variant="ghost"
+                className="text-red-600 hover:text-red-700 hover:bg-red-50 mt-2"
+                onClick={() => setShowUnenrollDialog(true)}
+              >
+                <StopCircle className="h-4 w-4 mr-1" />
+                Stop Learning
+              </Button>
             </div>
           </div>
         </div>
+
+        <AlertDialog open={showUnenrollDialog} onOpenChange={setShowUnenrollDialog}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Unenroll from course?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Are you sure you want to unenroll from "{course.title}"? Your lesson progress will be permanently deleted.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel disabled={unenrolling}>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleUnenroll}
+                disabled={unenrolling}
+                className="bg-red-600 hover:bg-red-700"
+              >
+                {unenrolling ? "Unenrolling..." : "Yes, unenroll"}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
