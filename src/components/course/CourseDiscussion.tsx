@@ -46,6 +46,10 @@ const CourseDiscussion = ({ courseId }: CourseDiscussionProps) => {
   }, [courseId, user]);
 
   const fetchDiscussions = async () => {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
     try {
       // Use secure function to get anonymized discussions for enrolled users
       const { data: discussionsData, error: discussionsError } = await supabase
