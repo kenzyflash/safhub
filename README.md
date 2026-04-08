@@ -13,8 +13,8 @@ Get EdHub running locally in 5 steps:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/kenzyflash/yet-ephrat-academy
-cd yet-ephrat-academy
+git clone https://github.com/kenzyflash/safhub.git
+cd safhub
 
 # 2. Install dependencies
 npm install
