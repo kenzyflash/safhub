@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   
   const roleUpdateInProgress = useRef(false);
   const cleanupFunctions = useRef<(() => void)[]>([]);
-  const authTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const authTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const cleanupAuthState = useCallback(() => {
     localStorage.removeItem('supabase.auth.token');

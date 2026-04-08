@@ -8,15 +8,12 @@ export const createNotification = async (
   type: 'course_release' | 'assignment' | 'enrollment' | 'grade' | 'general' = 'general'
 ) => {
   try {
-    const { error } = await supabase
-      .from('notifications')
-      .insert({
-        user_id: userId,
-        title,
-        message,
-        type,
-        is_read: false
-      });
+    const { error } = await supabase.rpc('send_notification', {
+      target_user_id: userId,
+      notification_title: title,
+      notification_message: message,
+      notification_type: type
+    });
 
     if (error) throw error;
   } catch (error) {
@@ -26,29 +23,11 @@ export const createNotification = async (
 
 export const createCourseReleaseNotification = async (courseName: string) => {
   try {
-    // Get all student users
-    const { data: students, error } = await supabase
-      .from('user_roles')
-      .select('user_id')
-      .eq('role', 'student');
+    const { error } = await supabase.rpc('send_course_release_notifications', {
+      course_name: courseName
+    });
 
     if (error) throw error;
-
-    const notifications = students?.map(student => ({
-      user_id: student.user_id,
-      title: 'New Course Available',
-      message: `A new course "${courseName}" is now available for enrollment!`,
-      type: 'course_release',
-      is_read: false
-    })) || [];
-
-    if (notifications.length > 0) {
-      const { error: insertError } = await supabase
-        .from('notifications')
-        .insert(notifications);
-
-      if (insertError) throw insertError;
-    }
   } catch (error) {
     console.error('Error creating course release notifications:', error);
   }

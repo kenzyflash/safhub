@@ -10,7 +10,8 @@ import { Plus, Edit, Trash2, Video, ArrowUp, ArrowDown, BookOpen } from 'lucide-
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import VideoUploader from '@/components/enhanced/VideoUploader';
+import VideoUrlInput from '@/components/enhanced/VideoUrlInput';
+import LessonMaterialUploader from '@/components/dashboard/LessonMaterialUploader';
 
 interface Lesson {
   id: string;
@@ -273,13 +274,11 @@ const LessonManagement = ({ courseId, courseName }: LessonManagementProps) => {
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium">Video Upload</label>
-                  <VideoUploader
-                    onUploadComplete={(url) => setNewLesson({ ...newLesson, video_url: url })}
+                  <label className="text-sm font-medium">Video URL</label>
+                  <VideoUrlInput
+                    value={newLesson.video_url}
+                    onChange={(url) => setNewLesson({ ...newLesson, video_url: url })}
                   />
-                  {newLesson.video_url && (
-                    <p className="text-sm text-green-600 mt-1">Video uploaded successfully</p>
-                  )}
                 </div>
                 <div className="flex gap-2">
                   <Button onClick={handleCreateLesson} className="bg-blue-600 hover:bg-blue-700">
@@ -296,7 +295,7 @@ const LessonManagement = ({ courseId, courseName }: LessonManagementProps) => {
       </CardHeader>
       <CardContent className="space-y-4">
         {lessons.map((lesson, index) => (
-          <div key={lesson.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+          <div key={lesson.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow space-y-3">
             <div className="flex items-start justify-between mb-3">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
@@ -314,6 +313,11 @@ const LessonManagement = ({ courseId, courseName }: LessonManagementProps) => {
                   )}
                 </div>
               </div>
+            </div>
+
+            {/* Lesson Materials */}
+            <div className="border-t pt-3">
+              <LessonMaterialUploader lessonId={lesson.id} courseId={courseId} />
             </div>
             
             <div className="flex items-center justify-between">
@@ -379,13 +383,11 @@ const LessonManagement = ({ courseId, courseName }: LessonManagementProps) => {
                           />
                         </div>
                         <div>
-                          <label className="text-sm font-medium">Video Upload</label>
-                          <VideoUploader
-                            onUploadComplete={(url) => setEditingLesson({ ...editingLesson, video_url: url })}
+                          <label className="text-sm font-medium">Video URL</label>
+                          <VideoUrlInput
+                            value={editingLesson.video_url}
+                            onChange={(url) => setEditingLesson({ ...editingLesson, video_url: url })}
                           />
-                          {editingLesson.video_url && (
-                            <p className="text-sm text-green-600 mt-1">Current video: {editingLesson.video_url}</p>
-                          )}
                         </div>
                         <div className="flex gap-2">
                           <Button onClick={handleUpdateLesson} className="bg-blue-600 hover:bg-blue-700">
