@@ -18,14 +18,28 @@ import {
   X,
   AlertCircle,
   RefreshCw,
+  StopCircle,
 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import ProfileDropdown from "@/components/ProfileDropdown";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import VideoPlayer from "@/components/course/VideoPlayer";
 import CourseDiscussion from "@/components/course/CourseDiscussion";
 import AssignmentSubmission from "@/components/course/AssignmentSubmission";
+import { generateCertificate } from "@/utils/generateCertificate";
+import LessonMaterials from "@/components/course/LessonMaterials";
 
 interface Course {
   id: string;
@@ -53,13 +67,15 @@ interface LessonProgress {
   watch_time_minutes: number;
 }
 
-const LOADING_TIMEOUT = 10000; // 10 seconds
+const LOADING_TIMEOUT = 20000; // 20 seconds
 const MAX_RETRY_ATTEMPTS = 3;
 
 const CoursePage = () => {
-  const { courseId } = useParams();
+  const { id } = useParams<{ id: string }>();
+  const courseId = id; // align with App.tsx route param ":id"
   const navigate = useNavigate();
   const { user, userRole, loading } = useAuth();
+  const { t } = useLanguage();
   const { toast } = useToast();
   
   const [course, setCourse] = useState<Course | null>(null);
@@ -69,9 +85,14 @@ const CoursePage = () => {
   const [courseLoading, setCourseLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
+  const [showUnenrollDialog, setShowUnenrollDialog] = useState(false);
+  const [unenrolling, setUnenrolling] = useState(false);
 
-  // Timeout for loading states
+  const [fetchStarted, setFetchStarted] = useState(false);
+
+  // Timeout for loading states - only starts when fetch actually begins
   useEffect(() => {
+    if (!fetchStarted) return;
     const timeoutId = setTimeout(() => {
       if (courseLoading) {
         console.log('Loading timeout reached');
@@ -81,7 +102,15 @@ const CoursePage = () => {
     }, LOADING_TIMEOUT);
 
     return () => clearTimeout(timeoutId);
-  }, [courseLoading]);
+  }, [fetchStarted, courseLoading]);
+
+  // If no valid course ID, show error immediately instead of spinning forever
+  useEffect(() => {
+    if (!loading && !courseId) {
+      setError('Invalid course link. No course ID was provided.');
+      setCourseLoading(false);
+    }
+  }, [loading, courseId]);
 
   // Authentication redirect with timeout
   useEffect(() => {
@@ -103,6 +132,7 @@ const CoursePage = () => {
   const fetchCourseDataWithRetry = async () => {
     try {
       setCourseLoading(true);
+      setFetchStarted(true);
       setError(null);
       
       await Promise.all([
@@ -333,12 +363,30 @@ const CoursePage = () => {
     fetchCourseDataWithRetry();
   };
 
+  const handleUnenroll = async () => {
+    if (!user || !courseId) return;
+    setUnenrolling(true);
+    try {
+      await supabase.from('lesson_progress').delete().eq('user_id', user.id).eq('course_id', courseId);
+      const { error } = await supabase.from('course_enrollments').delete().eq('user_id', user.id).eq('course_id', courseId);
+      if (error) throw error;
+      toast({ title: "Unenrolled", description: `You have been unenrolled from "${course?.title}".` });
+      navigate('/courses');
+    } catch (e) {
+      console.error('Unenroll error:', e);
+      toast({ title: "Error", description: "Failed to unenroll.", variant: "destructive" });
+    } finally {
+      setUnenrolling(false);
+      setShowUnenrollDialog(false);
+    }
+  };
+
   // Show loading state with timeout
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <BookOpen className="h-16 w-16 text-emerald-600 mx-auto mb-4 animate-spin" />
+          <BookOpen className="h-16 w-16 text-primary mx-auto mb-4 animate-spin" />
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
@@ -348,19 +396,19 @@ const CoursePage = () => {
   // Show error state with retry option
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">Unable to Load Course</h2>
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">{t('coursePage.unableToLoad')}</h2>
           <p className="text-gray-600 mb-4">{error}</p>
           <div className="space-x-2">
-            <Button onClick={handleRetry} className="bg-emerald-600 hover:bg-emerald-700">
+            <Button onClick={handleRetry}>
               <RefreshCw className="h-4 w-4 mr-2" />
-              Try Again
+              {t('coursePage.tryAgain')}
             </Button>
             <Button variant="outline" onClick={() => navigate(getDashboardUrl())}>
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
+              {t('coursePage.backToDashboard')}
             </Button>
           </div>
         </div>
@@ -371,11 +419,11 @@ const CoursePage = () => {
   // Show course loading state
   if (courseLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <BookOpen className="h-16 w-16 text-emerald-600 mx-auto mb-4 animate-spin" />
-          <p className="text-gray-600">Loading course content...</p>
-          <p className="text-sm text-gray-500 mt-2">This should only take a moment</p>
+          <BookOpen className="h-16 w-16 text-primary mx-auto mb-4 animate-spin" />
+          <p className="text-gray-600">{t('coursePage.loadingCourse')}</p>
+          <p className="text-sm text-gray-500 mt-2">{t('coursePage.loadingMoment')}</p>
         </div>
       </div>
     );
@@ -388,17 +436,17 @@ const CoursePage = () => {
   const currentLesson = lessons[selectedLesson];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Button variant="ghost" onClick={() => navigate(getDashboardUrl())}>
               <ArrowLeft className="h-5 w-5 mr-2" />
-              Back to Dashboard
+              {t('coursePage.backToDashboard')}
             </Button>
             <div className="flex items-center space-x-2">
-              <BookOpen className="h-8 w-8 text-emerald-600" />
+              <BookOpen className="h-8 w-8 text-primary" />
               <h1 className="text-2xl font-bold text-gray-800">EdHub</h1>
             </div>
           </div>
@@ -437,24 +485,93 @@ const CoursePage = () => {
 
               <div className="mb-4">
                 <div className="flex justify-between text-sm text-gray-600 mb-1">
-                  <span>Course Progress</span>
-                  <span>{getCompletedLessonsCount()}/{lessons.length} lessons completed</span>
+                  <span>{t('coursePage.courseProgress')}</span>
+                  <span>{getCompletedLessonsCount()}/{lessons.length} {t('coursePage.lessonsCompleted')}</span>
                 </div>
                 <Progress value={getCourseProgress()} className="h-2" />
               </div>
+
+              {getCourseProgress() === 100 && (
+                <div className="flex items-center gap-3">
+                  <select
+                    id="cert-style"
+                    className="border rounded-md px-3 py-2 text-sm bg-white"
+                    defaultValue="classic"
+                  >
+                    <option value="classic">Classic</option>
+                    <option value="modern">Modern</option>
+                    <option value="elegant">Elegant</option>
+                  </select>
+                  <Button
+                    onClick={() => {
+                      const style = (document.getElementById('cert-style') as HTMLSelectElement)?.value as any || 'classic';
+                      const userName = user.user_metadata?.first_name && user.user_metadata?.last_name
+                        ? `${user.user_metadata.first_name} ${user.user_metadata.last_name}`
+                        : user.email || 'Student';
+                      generateCertificate({
+                        studentName: userName,
+                        courseTitle: course.title,
+                        completionDate: new Date().toLocaleDateString('en-US', {
+                          year: 'numeric', month: 'long', day: 'numeric'
+                        }),
+                        instructorName: course.instructor_name,
+                        style,
+                      });
+                      toast({
+                        title: "Certificate Downloaded!",
+                        description: "Your certificate of completion has been saved.",
+                      });
+                    }}
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    {t('coursePage.downloadCertificate')}
+                  </Button>
+                </div>
+              )}
+
+              <Button
+                variant="ghost"
+                className="text-red-600 hover:text-red-700 hover:bg-red-50 mt-2"
+                onClick={() => setShowUnenrollDialog(true)}
+              >
+                <StopCircle className="h-4 w-4 mr-1" />
+                Stop Learning
+              </Button>
             </div>
           </div>
         </div>
+
+        <AlertDialog open={showUnenrollDialog} onOpenChange={setShowUnenrollDialog}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Unenroll from course?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Are you sure you want to unenroll from "{course.title}"? Your lesson progress will be permanently deleted.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel disabled={unenrolling}>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleUnenroll}
+                disabled={unenrolling}
+                className="bg-red-600 hover:bg-red-700"
+              >
+                {unenrolling ? "Unenrolling..." : "Yes, unenroll"}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Video and Content */}
           <div className="lg:col-span-2">
             <Tabs defaultValue="video" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="video">Video Lesson</TabsTrigger>
-                <TabsTrigger value="discussion">Discussion</TabsTrigger>
-                <TabsTrigger value="assignments">Assignments</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="video">{t('coursePage.videoLesson')}</TabsTrigger>
+                <TabsTrigger value="materials">Materials</TabsTrigger>
+                <TabsTrigger value="discussion">{t('coursePage.discussion')}</TabsTrigger>
+                <TabsTrigger value="assignments">{t('coursePage.assignments')}</TabsTrigger>
               </TabsList>
 
               <TabsContent value="video" className="space-y-6">
@@ -481,7 +598,7 @@ const CoursePage = () => {
                                 className="bg-green-600 hover:bg-green-700"
                               >
                                 <CheckCircle className="mr-2 h-4 w-4" />
-                                Completed
+                                {t('coursePage.completed')}
                               </Button>
                               <Button 
                                 variant="outline"
@@ -489,16 +606,15 @@ const CoursePage = () => {
                                 className="border-red-200 text-red-600 hover:bg-red-50"
                               >
                                 <X className="mr-2 h-4 w-4" />
-                                Remove Completion
+                                {t('coursePage.removeCompletion')}
                               </Button>
                             </div>
                           ) : (
                             <Button 
                               onClick={() => markLessonComplete(currentLesson.id)}
-                              className="bg-emerald-600 hover:bg-emerald-700"
                             >
                               <CheckCircle className="mr-2 h-4 w-4" />
-                              Mark as Complete
+                              {t('coursePage.markAsComplete')}
                             </Button>
                           )}
                           
@@ -508,7 +624,7 @@ const CoursePage = () => {
                                 variant="outline"
                                 onClick={() => setSelectedLesson(selectedLesson - 1)}
                               >
-                                Previous Lesson
+                                {t('coursePage.previousLesson')}
                               </Button>
                             )}
                             {selectedLesson < lessons.length - 1 && (
@@ -516,7 +632,7 @@ const CoursePage = () => {
                                 variant="outline"
                                 onClick={() => setSelectedLesson(selectedLesson + 1)}
                               >
-                                Next Lesson
+                                {t('coursePage.nextLesson')}
                               </Button>
                             )}
                           </div>
@@ -524,6 +640,14 @@ const CoursePage = () => {
                       </div>
                     </CardContent>
                   </Card>
+                )}
+              </TabsContent>
+
+              <TabsContent value="materials">
+                {currentLesson ? (
+                  <LessonMaterials lessonId={currentLesson.id} courseId={courseId!} />
+                ) : (
+                  <p className="text-muted-foreground text-center py-8">Select a lesson to view materials</p>
                 )}
               </TabsContent>
 
@@ -541,9 +665,9 @@ const CoursePage = () => {
           <div>
             <Card className="bg-white/80 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle>Course Lessons</CardTitle>
+                <CardTitle>{t('coursePage.courseLessons')}</CardTitle>
                 <CardDescription>
-                  {getCompletedLessonsCount()} of {lessons.length} lessons completed
+                  {getCompletedLessonsCount()} / {lessons.length} {t('coursePage.lessonsCompleted')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -553,8 +677,8 @@ const CoursePage = () => {
                       key={lesson.id}
                       className={`p-3 rounded-lg border cursor-pointer transition-colors ${
                         selectedLesson === index
-                          ? 'bg-emerald-50 border-emerald-200'
-                          : 'hover:bg-gray-50'
+                        ? 'bg-primary/10 border-primary/30'
+                        : 'hover:bg-gray-50'
                       }`}
                       onClick={() => setSelectedLesson(index)}
                     >
@@ -567,7 +691,7 @@ const CoursePage = () => {
                         </div>
                         <div className="flex items-center gap-2">
                           {isLessonCompleted(lesson.id) && (
-                            <CheckCircle className="h-4 w-4 text-emerald-600" />
+                            <CheckCircle className="h-4 w-4 text-primary" />
                           )}
                           <Badge variant={selectedLesson === index ? "default" : "secondary"} className="text-xs">
                             {index + 1}

@@ -14,6 +14,8 @@ const LanguageSelector = () => {
   const languages: { code: Language; name: string; nativeName: string }[] = [
     { code: 'en', name: 'English', nativeName: 'English' },
     { code: 'am', name: 'Amharic', nativeName: 'አማርኛ' },
+    { code: 'om', name: 'Afaan Oromoo', nativeName: 'Afaan Oromoo' },
+    { code: 'ti', name: 'Tigrinya', nativeName: 'ትግርኛ' },
   ];
 
   const currentLanguage = languages.find(lang => lang.code === language);

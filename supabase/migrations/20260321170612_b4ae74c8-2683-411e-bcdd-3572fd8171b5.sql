@@ -1,0 +1,10 @@
+-- Insert sample courses
+INSERT INTO courses (title, description, instructor_name, duration, total_lessons, category, level, rating, student_count, price, image_url) VALUES
+('Introduction to Mathematics', 'Master foundational math concepts including algebra, geometry, and basic calculus.', 'Dr. Sarah M.', '8 weeks', 24, 'Mathematics', 'Beginner', 4.7, 156, 'Free', 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400'),
+('Ethiopian History & Culture', 'Explore the rich history of Ethiopia from ancient Axum to modern times.', 'Prof. Abebe T.', '6 weeks', 18, 'History', 'Beginner', 4.8, 203, 'Free', 'https://images.unsplash.com/photo-1523050854058-8df90110c476?w=400'),
+('English Language Arts', 'Improve reading comprehension, writing skills, and grammar mastery.', 'Ms. Helen K.', '10 weeks', 30, 'Language', 'Intermediate', 4.5, 189, 'Free', 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=400'),
+('Physics Fundamentals', 'Understand mechanics, thermodynamics, waves, and electromagnetism.', 'Dr. Dawit G.', '12 weeks', 36, 'Science', 'Intermediate', 4.6, 142, 'Free', 'https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?w=400'),
+('Computer Science Basics', 'Learn programming fundamentals, algorithms, and computational thinking.', 'Mr. Samuel B.', '8 weeks', 20, 'Technology', 'Beginner', 4.9, 278, 'Free', 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400'),
+('Chemistry Essentials', 'Study atomic structure, chemical reactions, and organic chemistry basics.', 'Dr. Meron A.', '10 weeks', 28, 'Science', 'Intermediate', 4.4, 121, 'Free', 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400'),
+('Geography of Africa', 'Discover the physical and human geography of the African continent.', 'Prof. Yonas H.', '6 weeks', 16, 'Geography', 'Beginner', 4.3, 98, 'Free', 'https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?w=400'),
+('Creative Writing Workshop', 'Develop storytelling skills through poetry, fiction, and essay writing.', 'Ms. Tigist W.', '8 weeks', 22, 'Language', 'Advanced', 4.7, 87, 'Free', 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400');
