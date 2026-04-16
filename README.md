@@ -270,22 +270,6 @@ See [Security Guidelines](docs/SECURITY.md) for best practices.
 
 This project is part of an educational initiative. All rights reserved by the EdHub team.
 
----
-
-## 👥 Team
-
-### Project Leader
-**Kaleab Fikru**
-
-### Team Members
-1. Fiker Ayalneh
-2. Fikir Nigusse
-3. Fison Nasir
-4. Hanan Feisel
-5. Hasset Yonas
-6. Helina Abush
-7. Hiba Jemal
-8. Husniya Kedir
 
 ---
 
@@ -297,15 +281,6 @@ Need help? Reach out to us:
 - **Phone:** +251 (911) 123-456
 - **Address:** Education Center, Addis Ababa, Ethiopia
 - **Documentation:** [docs.edhub.com](https://docs.edhub.com) (coming soon)
-
----
-
-## 🙏 Acknowledgments
-
-- Built with [Lovable](https://lovable.dev)
-- Powered by [Supabase](https://supabase.com)
-- UI components from [shadcn/ui](https://ui.shadcn.com)
-- Icons by [Lucide](https://lucide.dev)
 
 ---
 
